@@ -1,0 +1,7 @@
+﻿@using UmbracoV7Demo.ViewModels
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Layout.cshtml";
+}
+
+@Html.Partial("ContactForm", new ContactViewModel())

@@ -1,4 +1,5 @@
-﻿@inherits UmbracoTemplatePage
+﻿@using ClientDependency.Core.Mvc
+@inherits UmbracoTemplatePage
 @{
     Layout = null;
 }<!DOCTYPE html>
@@ -63,5 +64,6 @@
         </div>
     </footer>
     <!-- /Footer -->
+	@Html.RenderJsHere()
 </body>
 </html>
