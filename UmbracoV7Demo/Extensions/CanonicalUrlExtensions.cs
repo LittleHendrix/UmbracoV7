@@ -33,7 +33,7 @@ namespace UmbracoV7Demo.Extensions
         {
             Uri rawUrl = html.ViewContext.RequestContext.HttpContext.Request.Url;
 
-            return CanonicalUrl(html, string.Format("{0}://{1}{2}", rawUrl.Scheme, rawUrl.Host, rawUrl.AbsolutePath));
+            return rawUrl == null ? MvcHtmlString.Empty : CanonicalUrl(html, string.Format("{0}://{1}{2}", rawUrl.Scheme, rawUrl.Host, rawUrl.AbsolutePath));
         }
 
         #endregion
@@ -57,6 +57,12 @@ namespace UmbracoV7Demo.Extensions
             if (string.IsNullOrWhiteSpace(path))
             {
                 Uri rawUrl = html.ViewContext.RequestContext.HttpContext.Request.Url;
+
+                if (rawUrl == null)
+                {
+                    return MvcHtmlString.Empty;
+                }
+
                 path = string.Format("{0}://{1}{2}", rawUrl.Scheme, rawUrl.Host, rawUrl.AbsolutePath);
             }
 
