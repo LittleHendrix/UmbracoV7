@@ -211,6 +211,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="default.aspx" />
+    <Content Include="Errors\ErrorGeneric.htm" />
+    <Content Include="Errors\ErrorNoAccess.htm" />
     <Content Include="Global.asax" />
     <Content Include="masterpages\dummy.txt" />
     <Content Include="media\dummy.txt" />
