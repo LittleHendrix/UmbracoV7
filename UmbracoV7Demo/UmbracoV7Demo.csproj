@@ -214,6 +214,7 @@
     <Content Include="Global.asax" />
     <Content Include="masterpages\dummy.txt" />
     <Content Include="media\dummy.txt" />
+    <Content Include="scripts\app.js" />
     <Content Include="usercontrols\dummy.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -258,7 +259,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="css\" />
-    <Folder Include="scripts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

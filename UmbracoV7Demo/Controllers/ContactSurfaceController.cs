@@ -23,7 +23,7 @@
             TimeSpan diff = DateTime.UtcNow - model.SubmitDate;
             if (diff.TotalSeconds < 12)
             {
-                this.ModelState.AddModelError("SubmitDate", "Your last submission is still being processed");
+                this.ModelState.AddModelError("SubmitDate", "Your last submission is still being processed. Form last submitted at: " + @model.SubmitDate.ToString("f"));
             }
 
             if (!this.ModelState.IsValid)
@@ -32,8 +32,6 @@
             }
 
             EmailDispatcher.SendContactEmail(model);
-
-            this.TempData.Add("FormCompeted", "true");
 
             try
             {

@@ -12,7 +12,7 @@
 {
     { Html.RenderPartial("ScriptsValidation"); }
 
-    using (Html.BeginUmbracoForm<ContactSurfaceController>("ContactUs", null, new { @class = "myForm" }, FormMethod.Post))
+    using (Html.BeginUmbracoForm<ContactSurfaceController>("ContactUs", null, new { @class = "myForm", @id = "contactForm" }, FormMethod.Post))
     {
         <div class="form-row">
             @Html.LabelFor(m => m.Name, "Name", new { @name = "nameLbl", @class = "frmLabel" })
@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-row submit-row">
-            <input type="submit" class="btn submit-btn" value="Submit" />
+            <input type="submit" class="btn submit-btn" id="submitContact" value="Submit" />
         </div>
 
     }
