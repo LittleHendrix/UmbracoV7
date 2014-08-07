@@ -1,4 +1,5 @@
-﻿@inherits UmbracoTemplatePage
+﻿@using UmbracoV7Demo.Extensions
+@inherits UmbracoTemplatePage
 @{
     Layout = "Layout.cshtml";
 
@@ -27,6 +28,43 @@
                             @CurrentPage.BodyText
                         </section>                           
                     </article>
+                    <section class="pageMedia">
+
+                        @Umbraco.UmbImagesFor(Model.Content, "singleMediaPicker", 1)
+
+                        @Umbraco.UmbImagesFor(Model.Content, "multiMediaPicker")
+
+                        <p>There are @Umbraco.UmbImagesCount(Model.Content, "singleMediaPicker") images in mediaPicker and @Umbraco.UmbImagesCount(Model.Content, "multiMediaPicker") in multiMediaPicker.</p>
+                        
+                        
+
+                        @{
+                            var imgs = Umbraco.UmbImagesNodesFor(Model.Content, "multiMediaPicker");
+                            @imgs
+                            foreach (var img in imgs)
+                            {
+                                @img.GetPropertyValue("umbracoFile")
+                                <br />
+                            }
+                        }
+                    </section>
+                    <section class="multiNode">
+                        @Umbraco.Field("multiNodePicker")
+
+                        @Umbraco.UmbMntpCount(Model.Content, "multiNodePicker")
+
+                        @{
+                            var mntp = Umbraco.UmbMntpNodesFor(Model.Content, "multiNodePicker");
+                            @mntp
+                            foreach (var item in mntp)
+                            {
+                                @item.Name <br />
+                                @item.Url <br />
+                                @item.GetPropertyValue("bodyText")
+                            }
+                        }
+                    </section>
+
                     <!-- /Content -->
                 </div>
             </div>

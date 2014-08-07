@@ -1,24 +1,62 @@
-﻿namespace UmbracoV7Demo.Extensions
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CanonicalUrlExtensions.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The canonical url extensions.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace UmbracoV7Demo.Extensions
 {
     using System;
     using System.Linq;
     using System.Web.Mvc;
-    using Umbraco.Core.Models;
 
+    /// <summary>
+    /// The canonical url extensions.
+    /// </summary>
     public static class CanonicalUrlExtensions
     {
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The canonical url.
+        /// </summary>
+        /// <param name="html">
+        /// The html.
+        /// </param>
+        /// <returns>
+        /// The <see cref="MvcHtmlString"/>.
+        /// </returns>
         public static MvcHtmlString CanonicalUrl(this HtmlHelper html)
         {
-            var rawUrl = html.ViewContext.RequestContext.HttpContext.Request.Url;
+            Uri rawUrl = html.ViewContext.RequestContext.HttpContext.Request.Url;
 
-            return CanonicalUrl(html, String.Format("{0}://{1}{2}", rawUrl.Scheme, rawUrl.Host, rawUrl.AbsolutePath));
+            return CanonicalUrl(html, string.Format("{0}://{1}{2}", rawUrl.Scheme, rawUrl.Host, rawUrl.AbsolutePath));
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The canonical url.
+        /// </summary>
+        /// <param name="html">
+        /// The html.
+        /// </param>
+        /// <param name="path">
+        /// The path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="MvcHtmlString"/>.
+        /// </returns>
         private static MvcHtmlString CanonicalUrl(this HtmlHelper html, string path)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
-                var rawUrl = html.ViewContext.RequestContext.HttpContext.Request.Url;
+                Uri rawUrl = html.ViewContext.RequestContext.HttpContext.Request.Url;
                 path = string.Format("{0}://{1}{2}", rawUrl.Scheme, rawUrl.Host, rawUrl.AbsolutePath);
             }
 
@@ -40,5 +78,7 @@
 
             return new MvcHtmlString(canonical.ToString(TagRenderMode.SelfClosing));
         }
+
+        #endregion
     }
 }
