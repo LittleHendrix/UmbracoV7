@@ -35,19 +35,21 @@
                         @Umbraco.UmbImagesFor(Model.Content, "multiMediaPicker")
 
                         <p>There are @Umbraco.UmbImagesCount(Model.Content, "singleMediaPicker") images in mediaPicker and @Umbraco.UmbImagesCount(Model.Content, "multiMediaPicker") in multiMediaPicker.</p>
-                        
-                        
+
+
 
                         @{
                             var imgs = Umbraco.UmbImagesNodesFor(Model.Content, "multiMediaPicker");
                             @imgs
-                            foreach (var img in imgs)
-                            {
-                                @img.GetPropertyValue("umbracoFile")
-                                <br />
-                            }
+
+                                foreach (var img in imgs)
+                                {
+                                    @img.GetPropertyValue("umbracoFile")
+                                    <br />
+                                }
                         }
                     </section>
+
                     <section class="multiNode">
                         @Umbraco.Field("multiNodePicker")
 
@@ -56,14 +58,21 @@
                         @{
                             var mntp = Umbraco.UmbMntpNodesFor(Model.Content, "multiNodePicker");
                             @mntp
-                            foreach (var item in mntp)
+                            if (mntp != null)
                             {
-                                @item.Name <br />
-                                @item.Url <br />
-                                @item.GetPropertyValue("bodyText")
+
+                                foreach (var item in mntp)
+                                {
+                                    @item.Name <br />
+                                    @item.Url <br />
+
+                                    @item.GetPropertyValue("bodyText")
+                                }
                             }
-                        }
+}
                     </section>
+
+
 
                     <!-- /Content -->
                 </div>

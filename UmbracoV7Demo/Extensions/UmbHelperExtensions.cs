@@ -103,7 +103,7 @@ namespace UmbracoV7Demo.Extensions
 
             var umbItemsList = publishedContent.GetPropertyValue<string>(propertyAlias)
                 .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
-            var umbItemsCollection = umbracoHelper.TypedMedia(umbItemsList).Where(x => x != null).Take(maxItems).ToList();
+            var umbItemsCollection = umbItemsList.Select(umbracoHelper.TypedMedia).Take(maxItems).ToList();
 
             if (!umbItemsCollection.Any())
             {
@@ -150,7 +150,7 @@ namespace UmbracoV7Demo.Extensions
         {
             if (!publishedContent.HasValue(propertyAlias))
             {
-                return null;
+                return Enumerable.Empty<IPublishedContent>().ToList();
             }
 
             var umbItemsList = publishedContent.GetPropertyValue<string>(propertyAlias)
@@ -158,7 +158,7 @@ namespace UmbracoV7Demo.Extensions
 
             var umbItemsCollection = umbItemsList.Select(umbracoHelper.TypedMedia).Take(maxItems).ToList();
 
-            return umbItemsCollection.Any() ? umbItemsCollection : null;
+            return umbItemsCollection.Any() ? umbItemsCollection : Enumerable.Empty<IPublishedContent>().ToList();
         }
 
         /// <summary>
@@ -187,14 +187,14 @@ namespace UmbracoV7Demo.Extensions
         {
             if (!publishedContent.HasValue(propertyAlias))
             {
-                return null;
+                return Enumerable.Empty<IPublishedContent>().ToList();
             }
 
             var umbMntpList = publishedContent.GetPropertyValue<string>(propertyAlias)
                 .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
             var umbMntpCollection = umbMntpList.Select(umbracoHelper.TypedContent).Take(maxItems).ToList();
 
-            return umbMntpCollection.Any() ? umbMntpCollection : null;
+            return umbMntpCollection.Any() ? umbMntpCollection : Enumerable.Empty<IPublishedContent>().ToList();
         }
 
         #endregion
