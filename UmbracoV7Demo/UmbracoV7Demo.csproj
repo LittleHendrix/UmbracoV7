@@ -129,6 +129,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -225,6 +226,7 @@
     <Compile Include="Controllers\NewsOverviewController.cs" />
     <Compile Include="Core\EmailDispatcher.cs" />
     <Compile Include="Core\EmailManager.cs" />
+    <Compile Include="Core\SyndicationFeedResult.cs" />
     <Compile Include="Extensions\CanonicalUrlExtensions.cs" />
     <Compile Include="Extensions\UmbHelperExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
