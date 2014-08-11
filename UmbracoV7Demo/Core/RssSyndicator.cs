@@ -13,6 +13,7 @@ namespace UmbracoV7Demo.Core
     using System.Linq;
     using System.ServiceModel.Syndication;
     using System.Web;
+    using System.Web.Caching;
 
     using umbraco;
 
@@ -40,15 +41,23 @@ namespace UmbracoV7Demo.Core
         /// </returns>
         public static SyndicationFeed GetFeed(RenderModel model)
         {
+            var cachedFeed = HttpContext.Current.Cache["cachedFeed"] as SyndicationFeed;
+            var cachedRequest = HttpContext.Current.Cache["cachedRequest"] as Uri;
+            //// return cachedFeed if not expired and incoming request is from the same url
+            if (cachedFeed != null && cachedRequest == HttpContext.Current.Request.Url)
+            {
+                return cachedFeed;
+            }
+
             var rssFeed = new SyndicationFeed();
             Uri rawUrl = HttpContext.Current.Request.Url;
             string pbaseUrl = string.Format("{0}://{1}", rawUrl.Scheme, rawUrl.Host);
 
-            string feedTitle = model.Content.HasValue("blogTitle")
-                                   ? model.Content.GetPropertyValue<string>("blogTitle")
+            string feedTitle = model.Content.HasValue("feedTitle")
+                                   ? model.Content.GetPropertyValue<string>("feedTitle")
                                    : model.Content.Name;
-            string feedDescri = model.Content.HasValue("blogDescription")
-                                    ? model.Content.GetPropertyValue<string>("blogDescription")
+            string feedDescri = model.Content.HasValue("feedDescription")
+                                    ? model.Content.GetPropertyValue<string>("feedDescription")
                                     : HttpContext.Current.Request.Url.Host;
 
             rssFeed.Id = pbaseUrl;
@@ -86,6 +95,9 @@ namespace UmbracoV7Demo.Core
             rssFeed.Links.Add(link);
 
             rssFeed.Items = GetFeedItems(pbaseUrl, model);
+
+            HttpContext.Current.Cache.Insert("cachedFeed", rssFeed, null, DateTime.UtcNow.AddMinutes(1), Cache.NoSlidingExpiration);
+            HttpContext.Current.Cache.Insert("cachedRequest", rawUrl, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(1));
 
             return rssFeed;
         }
