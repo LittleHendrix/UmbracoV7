@@ -1,6 +1,13 @@
 ﻿namespace UmbracoV7Demo.Extensions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Linq.Expressions;
     using System.Web.Mvc;
+    using System.Web.Mvc.Html;
+    using System.Web.Routing;
     using umbraco;
 
     public static class HtmlHelperExtensions
@@ -15,6 +22,27 @@
             var cleanHtml = library.StripHtml(value);
 
             return cleanHtml.Length <= count ? MvcHtmlString.Create(cleanHtml) : MvcHtmlString.Create(cleanHtml.Substring(0, count - 1) + elipses);
+        }
+
+        public static MvcHtmlString CustomTextBoxFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
+            object htmlAttributes)
+        {
+            var member = expression.Body as MemberExpression;
+
+            var stringLength =
+                member.Member.GetCustomAttributes(typeof(StringLengthAttribute), false).FirstOrDefault() as
+                StringLengthAttribute;
+
+            var attributes = (IDictionary<string, object>)new RouteValueDictionary(htmlAttributes);
+
+            if (stringLength != null)
+            {
+                attributes.Add("maxlength", stringLength.MaximumLength);
+            }
+
+            return htmlHelper.TextBoxFor(expression, attributes);
         }
     }
 }

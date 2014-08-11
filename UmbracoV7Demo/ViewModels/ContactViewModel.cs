@@ -11,6 +11,7 @@
         public DateTime SubmitDate { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
+        [StringLength(10)]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Email address is required")]
@@ -21,6 +22,7 @@
         public string Subject { get; set; }
 
         [Required(ErrorMessage = "Message is required")]
+        [StringLength(1024)]
         public string Message { get; set; }
     }
 }

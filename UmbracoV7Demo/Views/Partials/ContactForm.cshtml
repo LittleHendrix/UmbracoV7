@@ -1,5 +1,6 @@
 ﻿@using UmbracoV7Demo.ViewModels
 @using UmbracoV7Demo.Controllers
+@using UmbracoV7Demo.Extensions
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<ContactViewModel>
 @{
     Layout = "";
@@ -17,6 +18,7 @@
         <div class="form-row">
             @Html.LabelFor(m => m.Name, "Name", new { @name = "nameLbl", @class = "frmLabel" })
             @Html.TextBoxFor(m => m.Name, new { @class = "frmTxtbox", placeholder = "Enter your name" })
+            @Html.CustomTextBoxFor(m => m.Name, new { @class = "frmTxtbox", placeholder = "Enter your name" })
             @Html.ValidationMessageFor(m => m.Name)
         </div>
 
