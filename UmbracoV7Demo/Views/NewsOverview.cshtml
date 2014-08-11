@@ -19,13 +19,15 @@
                                                     : post.GetPropertyValue<DateTime>("PublishDate");
                         <h2>@postTitle</h2>
                         <p>Published on: @postDate.ToString("f")</p>
+                        <p><a href="@post.Url">Read more</a></p>
                     }
 
 
                     <nav class="pagination">
                         @if (Model.IsFirstPage == false)
                         {
-                            <a class="newr-posts" href="?Page=@Model.PreviousPage">&larr; Newer Posts</a>
+                            @*<a class="newr-posts" href="?Page=@Model.PreviousPage">&larr; Newer Posts</a>*@
+                            <a class="newr-posts" href="@(Model.Content.Url)@(Model.PreviousPage)/">&larr; Newer Posts</a>
                         }
 
                         @if (Model.TotalPages > 1)
@@ -38,7 +40,8 @@
                                 }
                                 else
                                 {
-                                    <a href="?Page=@(i)" class="page-no">@(i)</a>
+                                    @*<a href="?Page=@(i)" class="page-no">@(i)</a>*@
+                                    <a href="@(Model.Content.Url)@(i)/" class="page-no">@(i)</a>
                                 }
                             }
                         }
@@ -47,7 +50,8 @@
 
                         @if (Model.IsLastPage == false)
                         {
-                            <a class="older-posts" href="?Page=@Model.NextPage">Older Posts &rarr;</a>
+                            @*<a class="older-posts" href="?Page=@Model.NextPage">Older Posts &rarr;</a>*@
+                            <a class="older-posts" href="@(Model.Content.Url)@(Model.NextPage)/">Older Posts &rarr;</a>
                         }
 
                     </nav>
