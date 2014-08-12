@@ -1,0 +1,95 @@
+﻿@using UmbracoV7Demo.Extensions
+@inherits UmbracoTemplatePage
+@{
+    Layout = "Layout.cshtml";
+
+    // If the editor has not explicitly provided the "Page title" property page 
+    // then just show the name of the page otherwise show the provided title
+    var pageTitle = string.IsNullOrWhiteSpace(CurrentPage.Title)
+        ? CurrentPage.Name
+        : CurrentPage.Title;    
+}
+<div id="main-wrapper">
+    <div id="main" class="container">
+        <div class="row">
+            <div class="9u skel-cell-mainContent">
+                <div class="content content-left">
+                    <!-- Content -->
+                    <article class="is-page-content">
+                        <header>
+                            <h2>@pageTitle</h2>
+                        </header>
+                        <section>
+                            @if (string.IsNullOrWhiteSpace(CurrentPage.Image) == false)
+                            {
+                                <span class="image image-full"><img src="@CurrentPage.Image" alt="" /></span>
+                            }
+
+                            @CurrentPage.BodyText
+                        </section>                           
+                    </article>
+                    <section class="pageMedia">
+
+                        @Umbraco.UmbImagesFor(Model.Content, "singleMediaPicker", 1)
+
+                        @Umbraco.UmbImagesFor(Model.Content, "multiMediaPicker")
+
+                        <p>There are @Umbraco.UmbImagesCount(Model.Content, "singleMediaPicker") images in mediaPicker and @Umbraco.UmbImagesCount(Model.Content, "multiMediaPicker") in multiMediaPicker.</p>
+
+
+
+                        @{
+                            var imgs = Umbraco.UmbImagesNodesFor(Model.Content, "multiMediaPicker");
+                            @imgs
+
+                                foreach (var img in imgs)
+                                {
+                                    @img.GetPropertyValue("umbracoFile")
+                                    <br />
+                                }
+                        }
+                    </section>
+
+                    <section class="multiNode">
+                        @Umbraco.Field("multiNodePicker")
+
+                        @Umbraco.UmbMntpCount(Model.Content, "multiNodePicker")
+
+                        @{
+                            var mntp = Umbraco.UmbMntpNodesFor(Model.Content, "multiNodePicker");
+                            @mntp
+                            if (mntp != null)
+                            {
+
+                                foreach (var item in mntp)
+                                {
+                                    @item.Name <br />
+                                    @item.Url <br />
+
+                                    @item.GetPropertyValue("bodyText")
+                                }
+                            }
+}
+                    </section>
+
+
+
+                    <!-- /Content -->
+                </div>
+            </div>
+            <div class="3u">
+                <div class="sidebar">
+                    <!-- Sidebar -->
+                    @{ Html.RenderPartial("umbLatestNewsWidget"); }
+                    <!-- /Sidebar -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="12u">
+                @{ Html.RenderPartial("umbFeatures"); }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Main -->

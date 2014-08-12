@@ -1,0 +1,72 @@
+﻿@using UmbracoV7Demo.Extensions
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<UmbracoV7Demo.ViewModels.NewsViewModel>
+@{
+    Layout = "Layout.cshtml";
+}
+
+<div id="main-wrapper">
+    <div id="main" class="container">
+        <div class="row">
+            <div class="9u skel-cell-mainContent">
+                <div class="content content-left">
+                    @foreach (var post in Model.BlogPost)
+                    {
+                        var postTitle = post.HasValue("pageHeading")
+                                                    ? post.GetPropertyValue("pageHeading")
+                                                    : post.Name;
+
+                        var postDate = post.GetPropertyValue<DateTime>("publishDate") == default(DateTime)
+                                                    ? post.CreateDate
+                                                    : post.GetPropertyValue<DateTime>("PublishDate");
+                        <h2>@postTitle</h2>
+                        <p>Published on: @postDate.ToString("f")</p>
+                        <p>@Html.Truncate(post.GetPropertyValue<string>("bodyText"), 100, "...")</p>
+                        <p><a href="@post.Url">Read more</a></p>
+                    }
+
+
+                    <nav class="pagination">
+                        @if (Model.IsFirstPage == false)
+                        {
+                            @*<a class="newr-posts" href="?Page=@Model.PreviousPage">&larr; Newer Posts</a>*@
+                            <a class="newr-posts" href="@(Model.Content.Url)@(Model.PreviousPage)/">&larr; Newer Posts</a>
+                        }
+
+                        @if (Model.TotalPages > 1)
+                        {
+                            for (var i = 1; i <= Model.TotalPages; i++)
+                            {
+                                if (i == Model.Page)
+                                {
+                                    <span class="curPage">@i</span>
+                                }
+                                else
+                                {
+                                    @*<a href="?Page=@(i)" class="page-no">@(i)</a>*@
+                                    <a href="@(Model.Content.Url)@(i)/" class="page-no">@(i)</a>
+                                }
+                            }
+                        }
+
+                        @*<span class="page-number">Page <span class="number">@Model.Page</span> of <span class="number">@Model.TotalPages</span></span>*@
+
+                        @if (Model.IsLastPage == false)
+                        {
+                            @*<a class="older-posts" href="?Page=@Model.NextPage">Older Posts &rarr;</a>*@
+                            <a class="older-posts" href="@(Model.Content.Url)@(Model.NextPage)/">Older Posts &rarr;</a>
+                        }
+
+                    </nav>
+                </div>
+            </div>
+
+            <div class="3u">
+                <div class="sidebar">
+                    <!-- Sidebar -->
+                    @{ Html.RenderPartial("umbLatestNewsWidget"); }
+                    <!-- /Sidebar -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

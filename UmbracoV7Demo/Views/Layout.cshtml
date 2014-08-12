@@ -1,3 +1,5 @@
+﻿@using ClientDependency.Core.Mvc
+@using UmbracoV7Demo.Extensions
 @inherits UmbracoTemplatePage
 @{
     Layout = null;
@@ -13,6 +15,8 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
+    @Html.CanonicalUrl()
+	@{Html.RenderPartial("RssLink", Umbraco.AssignedContentItem);}
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700|Open+Sans+Condensed:700" rel="stylesheet" />
     <script src="/js/jquery.min.js"></script>
     <script src="/js/config.js"></script>
@@ -63,5 +67,6 @@
         </div>
     </footer>
     <!-- /Footer -->
+	@Html.RenderJsHere()
 </body>
 </html>
