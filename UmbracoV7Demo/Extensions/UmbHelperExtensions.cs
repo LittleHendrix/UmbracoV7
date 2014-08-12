@@ -44,37 +44,6 @@ namespace UmbracoV7Demo.Extensions
         }
 
         /// <summary>
-        /// The umb images count.
-        /// </summary>
-        /// <param name="umbracoHelper">
-        /// The umbraco helper.
-        /// </param>
-        /// <param name="publishedContent">
-        /// TypeOf: IPublishedContent - e.g. Model.content or Umbraco.AssignedContentItem.
-        /// </param>
-        /// <param name="propertyAlias">
-        /// The property alias.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        public static int UmbImagesCount(
-            this UmbracoHelper umbracoHelper, 
-            IPublishedContent publishedContent, 
-            string propertyAlias)
-        {
-            if (!publishedContent.HasValue(propertyAlias))
-            {
-                return default(int);
-            }
-
-            return
-                publishedContent.GetPropertyValue<string>(propertyAlias)
-                    .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
-                    .Length;
-        }
-
-        /// <summary>
         /// The umb images for.
         /// </summary>
         /// <param name="umbracoHelper">
@@ -169,37 +138,6 @@ namespace UmbracoV7Demo.Extensions
                 umbItemsList.Select(umbracoHelper.TypedMedia).Take(maxItems).ToList();
 
             return umbItemsCollection.Any() ? umbItemsCollection : Enumerable.Empty<IPublishedContent>().ToList();
-        }
-
-        /// <summary>
-        /// The umb mntp count.
-        /// </summary>
-        /// <param name="umbracoHelper">
-        /// The umbraco helper.
-        /// </param>
-        /// <param name="publishedContent">
-        /// The published content.
-        /// </param>
-        /// <param name="propertyAlias">
-        /// The property alias.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        public static int UmbMntpCount(
-            this UmbracoHelper umbracoHelper, 
-            IPublishedContent publishedContent, 
-            string propertyAlias)
-        {
-            if (!publishedContent.HasValue(propertyAlias))
-            {
-                return default(int);
-            }
-
-            return
-                publishedContent.GetPropertyValue<string>(propertyAlias)
-                    .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
-                    .Length;
         }
 
         /// <summary>

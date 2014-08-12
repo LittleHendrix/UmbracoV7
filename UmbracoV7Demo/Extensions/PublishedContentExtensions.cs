@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace UmbracoV7Demo.Extensions
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
 
@@ -152,6 +153,31 @@ namespace UmbracoV7Demo.Extensions
             }
 
             return MvcHtmlString.Create(htmlList.ToString());
+        }
+
+        /// <summary>
+        /// The mntp count.
+        /// </summary>
+        /// <param name="publishedContent">
+        /// The published content.
+        /// </param>
+        /// <param name="propertyAlias">
+        /// The property alias. instance of Multinode Treepicker or Multi Media Picker
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public static int MntpCount(this IPublishedContent publishedContent, string propertyAlias)
+        {
+            if (!publishedContent.HasValue(propertyAlias))
+            {
+                return default(int);
+            }
+
+            return
+                publishedContent.GetPropertyValue<string>(propertyAlias)
+                    .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    .Length;
         }
 
         #endregion

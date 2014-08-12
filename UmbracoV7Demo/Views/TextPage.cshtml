@@ -34,7 +34,7 @@
 
                         @Umbraco.UmbImagesFor(Model.Content, "multiMediaPicker")
 
-                        <p>There are @Umbraco.UmbImagesCount(Model.Content, "singleMediaPicker") images in mediaPicker and @Umbraco.UmbImagesCount(Model.Content, "multiMediaPicker") in multiMediaPicker.</p>
+                        <p>There are @Model.Content.MntpCount("singleMediaPicker") images in mediaPicker and @Model.Content.MntpCount("multiMediaPicker") in multiMediaPicker.</p>
 
 
 
@@ -53,7 +53,7 @@
                     <section class="multiNode">
                         @Umbraco.Field("multiNodePicker")
 
-                        @Umbraco.UmbMntpCount(Model.Content, "multiNodePicker")
+                        @Model.Content.MntpCount("multiNodePicker")
 
                         @{
                             var mntp = Umbraco.UmbMntpNodesFor(Model.Content, "multiNodePicker");
