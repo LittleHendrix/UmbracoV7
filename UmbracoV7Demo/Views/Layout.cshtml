@@ -68,5 +68,15 @@
     </footer>
     <!-- /Footer -->
 	@Html.RenderJsHere()
+    @{
+
+        var settings = Umbraco.UmbGetTypedNodeByAlias("AdminSettings");
+
+        if (settings != null)
+        {
+            @Html.Raw(settings.GetPropertyValue("googleAnalytics"))
+        }
+
+    }
 </body>
 </html>
