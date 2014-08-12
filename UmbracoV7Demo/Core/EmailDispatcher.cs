@@ -37,6 +37,8 @@ namespace UmbracoV7Demo.Core
             string to = ConfigurationManager.AppSettings["ContactEmailAddress"] ?? "luchen_sv@msn.com";
             var em = new EmailManager();
             em.SendMail(to, "Umbraco V7 Demo Contact", "EmailContact", model);
+
+            SaveContact(model);
         }
 
         #endregion
@@ -64,7 +66,7 @@ namespace UmbracoV7Demo.Core
             Node node = Node.GetNodeByXpath("//ContactUs[1]");
 
             IContent content = cs.CreateContent(model.EmailAddress, node.Id, msgDocTypeAlias);
-            content.Name = model.EmailAddress;
+            content.Name = "from: " + model.EmailAddress;
             if (content.HasProperty(namePropperty))
             {
                 content.SetValue(namePropperty, model.Name);
@@ -90,7 +92,8 @@ namespace UmbracoV7Demo.Core
                 content.SetValue(datetimePropperty, model.SubmitDate.ToString("f"));
             }
 
-            cs.SaveAndPublishWithStatus(content);
+            // cs.SaveAndPublishWithStatus(content);
+            cs.Save(content);
         }
 
         #endregion
