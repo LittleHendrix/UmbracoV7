@@ -10,6 +10,7 @@ namespace UmbracoV7Demo.Extensions
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
 
     using Newtonsoft.Json.Linq;
@@ -156,6 +157,95 @@ namespace UmbracoV7Demo.Extensions
         }
 
         /// <summary>
+        /// The images for.
+        /// </summary>
+        /// <param name="publishedContent">
+        /// The published content.
+        /// </param>
+        /// <param name="propertyAlias">
+        /// The property alias.
+        /// </param>
+        /// <param name="maxItems">
+        /// The max items.
+        /// </param>
+        /// <returns>
+        /// The <see cref="MvcHtmlString"/>.
+        /// </returns>
+        public static MvcHtmlString ImagesFor(
+            this IPublishedContent publishedContent, 
+            string propertyAlias, 
+            int maxItems = 1000)
+        {
+            if (!publishedContent.HasValue(propertyAlias))
+            {
+                return MvcHtmlString.Empty;
+            }
+
+            var helper = new UmbracoHelper(UmbracoContext.Current);
+
+            IEnumerable<int> itemList =
+                publishedContent.GetPropertyValue<string>(propertyAlias)
+                    .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse);
+            List<IPublishedContent> itemCollection = itemList.Select(helper.TypedMedia).Take(maxItems).ToList();
+
+            if (!itemCollection.Any())
+            {
+                return MvcHtmlString.Empty;
+            }
+
+            var tags = new List<TagBuilder>();
+
+            foreach (IPublishedContent item in itemCollection)
+            {
+                var imgTag = new TagBuilder("img");
+                imgTag.Attributes.Add("src", item.GetPropertyValue<string>("umbracoFile"));
+                imgTag.Attributes.Add("alt", item.Name + "-" + item.Id);
+
+                tags.Add(imgTag);
+            }
+
+            return MvcHtmlString.Create(string.Join(" ", tags));
+        }
+
+        /// <summary>
+        /// The images nodes for.
+        /// </summary>
+        /// <param name="publishedContent">
+        /// The published content.
+        /// </param>
+        /// <param name="propertyAlias">
+        /// The property alias.
+        /// </param>
+        /// <param name="maxItems">
+        /// The max items.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<IPublishedContent> ImagesNodesFor(
+            this IPublishedContent publishedContent, 
+            string propertyAlias, 
+            int maxItems = 1000)
+        {
+            if (!publishedContent.HasValue(propertyAlias))
+            {
+                return Enumerable.Empty<IPublishedContent>().ToList();
+            }
+
+            var helper = new UmbracoHelper(UmbracoContext.Current);
+
+            IEnumerable<int> itemList =
+                publishedContent.GetPropertyValue<string>(propertyAlias)
+                    .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse);
+
+            List<IPublishedContent> itemCollection = itemList.Select(helper.TypedMedia).Take(maxItems).ToList();
+
+            return itemCollection.Any() ? itemCollection : Enumerable.Empty<IPublishedContent>().ToList();
+        }
+
+        /// <summary>
         /// The mntp count.
         /// </summary>
         /// <param name="publishedContent">
@@ -178,6 +268,42 @@ namespace UmbracoV7Demo.Extensions
                 publishedContent.GetPropertyValue<string>(propertyAlias)
                     .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
                     .Length;
+        }
+
+        /// <summary>
+        /// The umb mntp nodes for.
+        /// </summary>
+        /// <param name="publishedContent">
+        /// The published content.
+        /// </param>
+        /// <param name="propertyAlias">
+        /// The property alias.
+        /// </param>
+        /// <param name="maxItems">
+        /// The max items.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<IPublishedContent> MntpNodesFor(
+            this IPublishedContent publishedContent, 
+            string propertyAlias, 
+            int maxItems = 1000)
+        {
+            if (!publishedContent.HasValue(propertyAlias))
+            {
+                return Enumerable.Empty<IPublishedContent>().ToList();
+            }
+
+            var helper = new UmbracoHelper(UmbracoContext.Current);
+
+            IEnumerable<int> mntpList =
+                publishedContent.GetPropertyValue<string>(propertyAlias)
+                    .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse);
+            List<IPublishedContent> mntpCollection = mntpList.Select(helper.TypedContent).Take(maxItems).ToList();
+
+            return mntpCollection.Any() ? mntpCollection : Enumerable.Empty<IPublishedContent>().ToList();
         }
 
         #endregion

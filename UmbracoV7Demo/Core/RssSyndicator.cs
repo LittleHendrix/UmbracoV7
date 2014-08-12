@@ -139,7 +139,7 @@ namespace UmbracoV7Demo.Core
                 if (item.HasValue("pageMedia"))
                 {
                     //IPublishedContent img = umbracoHelper.TypedMedia(item.GetPropertyValue<int>("pageMedia"));
-                    var img = umbracoHelper.UmbImagesNodesFor(item, "pageMedia", 1).FirstOrDefault();
+                    var img = item.ImagesNodesFor("pageMedia", 1).FirstOrDefault();
                     content += "<p><img src=\"" + img.Url + "\" alt=\"" + img.Name + "\" /></p>";
                 }
 
