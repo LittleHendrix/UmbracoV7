@@ -72,7 +72,13 @@
 }
                     </section>
 
+                    <section class="relatedLinks">
+                        @Model.Content.GetRelatedLinksList("relatedContent", new { @class = "relatedLinks", @id = "myRelatedLinks" }, "ol")
+                    </section>
 
+                    <section class="multiUrlPicker">
+                        @Model.Content.GetMultiUrlLinksList("multipleUrlPicker")
+                    </section>
 
                     <!-- /Content -->
                 </div>
