@@ -15,7 +15,7 @@ namespace UmbracoV7Demo.Core
     using Umbraco.Core.Models;
     using Umbraco.Core.Services;
 
-    using umbraco.NodeFactory;
+    using Umbraco.Web;
 
     using UmbracoV7Demo.ViewModels;
 
@@ -62,8 +62,10 @@ namespace UmbracoV7Demo.Core
 
             IContentService cs = ApplicationContext.Current.Services.ContentService;
 
+            UmbracoHelper helper = new UmbracoHelper(UmbracoContext.Current);
+
             // Make sure a docType of ContactUs exist
-            Node node = Node.GetNodeByXpath("//ContactUs[1]");
+            IPublishedContent node = helper.TypedContentSingleAtXPath("//ContactUs[1]");
 
             IContent content = cs.CreateContent(model.EmailAddress, node.Id, msgDocTypeAlias);
             content.Name = "from: " + model.EmailAddress;
