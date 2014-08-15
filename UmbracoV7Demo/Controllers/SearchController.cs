@@ -1,4 +1,13 @@
-﻿namespace UmbracoV7Demo.Controllers
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SearchController.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The search controller.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace UmbracoV7Demo.Controllers
 {
     using System;
     using System.Linq;
@@ -13,13 +22,42 @@
 
     using UmbracoV7Demo.ViewModels;
 
+    /// <summary>
+    /// The search controller.
+    /// </summary>
     public class SearchController : RenderMvcController
     {
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The index.
+        /// </summary>
+        /// <param name="umbracoModel">
+        /// The umbraco model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         public override ActionResult Index(RenderModel umbracoModel)
         {
             return this.GetDefaultAction(umbracoModel);
         }
 
+        /// <summary>
+        /// The search.
+        /// </summary>
+        /// <param name="umbracoModel">
+        /// The umbraco model.
+        /// </param>
+        /// <param name="searchTerms">
+        /// The search terms.
+        /// </param>
+        /// <param name="json">
+        /// The json.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         public ActionResult Search(RenderModel umbracoModel, string searchTerms = "", string json = "")
         {
             if (!string.IsNullOrEmpty(json))
@@ -36,16 +74,40 @@
             return this.GetDefaultAction(model);
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The get default action.
+        /// </summary>
+        /// <param name="model">
+        /// The model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         private ActionResult GetDefaultAction(object model)
         {
             // get the template name from the route values:
             // string template = this.ControllerContext.RouteData.Values["action"].ToString();
 
             // return this.View(template, model);
-
             return this.CurrentTemplate(model);
         }
 
+        /// <summary>
+        /// The get search results.
+        /// </summary>
+        /// <param name="searchTerms">
+        /// The search terms.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page size.
+        /// </param>
+        /// <returns>
+        /// The <see cref="SearchResultsViewModel"/>.
+        /// </returns>
         private SearchResultsViewModel GetSearchResults(string searchTerms, int pageSize)
         {
             int page;
@@ -65,13 +127,15 @@
                 ISearchCriteria searchCriteria = searchProvider.CreateSearchCriteria(BooleanOperation.Or);
                 IBooleanOperation queryBuilder = null;
 
-                foreach (var searchValue in searchTerms.Split(' ').Where(searchTerm => !string.IsNullOrEmpty(searchTerm.RemoveStopWords())))
+                foreach (
+                    string searchValue in
+                        searchTerms.Split(' ').Where(searchTerm => !string.IsNullOrEmpty(searchTerm.RemoveStopWords())))
                 {
                     if (queryBuilder == null)
                     {
                         queryBuilder =
                             searchCriteria.GroupedOr(
-                                new[] { "nodeName", "metaTitle", "metaDescription", "bodyText" },
+                                new[] { "nodeName", "metaTitle", "metaDescription", "bodyText" }, 
                                 searchValue);
                     }
                     else
@@ -79,7 +143,7 @@
                         queryBuilder =
                             queryBuilder.Or()
                                 .GroupedOr(
-                                    new[] { "nodeName", "metaTitle", "metaDescription", "bodyText" },
+                                    new[] { "nodeName", "metaTitle", "metaDescription", "bodyText" }, 
                                     searchValue);
                     }
                 }
@@ -111,13 +175,13 @@
             }
 
             var searchResultModel = new SearchResultsViewModel
-            {
-                Page = page,
-                PageSize = pageSize,
-                ResultCount = resultCount,
-                TotalPages = totalPages,
-                SearchTerms = searchTerms
-            };
+                                        {
+                                            Page = page, 
+                                            PageSize = pageSize, 
+                                            ResultCount = resultCount, 
+                                            TotalPages = totalPages, 
+                                            SearchTerms = searchTerms
+                                        };
 
             if (searchResults != null)
             {
@@ -126,5 +190,7 @@
 
             return searchResultModel;
         }
+
+        #endregion
     }
 }

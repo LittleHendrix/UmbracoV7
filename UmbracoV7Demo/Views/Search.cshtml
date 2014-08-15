@@ -3,11 +3,11 @@
 @{
     Layout = "Layout.cshtml";
 
-    // If the editor has not explicitly provided the "Page title" property page 
+    // If the editor has not explicitly provided the "Page title" property page
     // then just show the name of the page otherwise show the provided title
     var pageTitle = string.IsNullOrWhiteSpace(CurrentPage.Title)
         ? CurrentPage.Name
-        : CurrentPage.Title;    
+        : CurrentPage.Title;
 }
 <div id="main-wrapper">
     <div id="main" class="container">
@@ -26,9 +26,11 @@
                             }
 
                             @CurrentPage.BodyText
-                        </section>                           
+                        </section>
+
+                        @Html.Partial("searchResult", new UmbracoV7Demo.ViewModels.SearchResultsViewModel())
                     </article>
-					
+
                     <!-- /Content -->
                 </div>
             </div>

@@ -22,6 +22,9 @@
     <script src="/js/config.js"></script>
     <script src="/js/skel.min.js"></script>
     <script src="/js/skel-panels.min.js"></script>
+    @Html.RequiresJs("~/scripts/bootstrap-typeahead.js")
+    @Html.RequiresJs("~/scripts/app.js")
+    <link rel="stylesheet" href="/css/typeahead.css" />
     <noscript>
         <link rel="stylesheet" href="/css/skel-noscript.css" />
         <link rel="stylesheet" href="/css/style.css" />
@@ -34,6 +37,9 @@
 <body class="homepage">
     <!-- Header -->
     <header id="header">
+            @Html.Partial("SearchBoxJson")
+        <br />
+        <br />
         <div class="logo">
             <div>
                 <h1><a href="/" id="logo">@Umbraco.Field("siteName", recursive: true)</a></h1>

@@ -218,6 +218,7 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\XmlSitemapSurfaceController.cs" />
     <Compile Include="ViewModels\SearchResultsViewModel.cs" />
+    <Content Include="css\typeahead.css" />
     <Content Include="default.aspx" />
     <Content Include="Errors\ErrorGeneric.htm" />
     <Content Include="Errors\ErrorNoAccess.htm" />
@@ -225,6 +226,7 @@
     <Content Include="masterpages\dummy.txt" />
     <Content Include="media\dummy.txt" />
     <Content Include="scripts\app.js" />
+    <Content Include="scripts\bootstrap-typeahead.js" />
     <Content Include="usercontrols\dummy.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -276,7 +278,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\images\" />
-    <Folder Include="css\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
