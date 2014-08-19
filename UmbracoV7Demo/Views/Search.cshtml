@@ -1,13 +1,7 @@
 ﻿@using UmbracoV7Demo.Extensions
-@inherits UmbracoTemplatePage
+@inherits UmbracoViewPage<UmbracoV7Demo.ViewModels.SearchResultsViewModel>
 @{
-    Layout = "Layout.cshtml";
-
-    // If the editor has not explicitly provided the "Page title" property page
-    // then just show the name of the page otherwise show the provided title
-    var pageTitle = string.IsNullOrWhiteSpace(CurrentPage.Title)
-        ? CurrentPage.Name
-        : CurrentPage.Title;
+    Layout = "";
 }
 <div id="main-wrapper">
     <div id="main" class="container">
@@ -17,18 +11,10 @@
                     <!-- Content -->
                     <article class="is-page-content">
                         <header>
-                            <h2>@pageTitle</h2>
+                            <h2>@Umbraco.Field("pageHeading", altFieldAlias: "pageName")</h2>
                         </header>
-                        <section>
-                            @if (string.IsNullOrWhiteSpace(CurrentPage.Image) == false)
-                            {
-                                <span class="image image-full"><img src="@CurrentPage.Image" alt="" /></span>
-                            }
 
-                            @CurrentPage.BodyText
-                        </section>
-
-                        @Html.Partial("searchResult", new UmbracoV7Demo.ViewModels.SearchResultsViewModel())
+                        @Html.Partial("searchResult")
                     </article>
 
                     <!-- /Content -->
@@ -37,14 +23,12 @@
             <div class="3u">
                 <div class="sidebar">
                     <!-- Sidebar -->
-                    @{ Html.RenderPartial("umbLatestNewsWidget"); }
                     <!-- /Sidebar -->
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="12u">
-                @{ Html.RenderPartial("umbFeatures"); }
             </div>
         </div>
     </div>
