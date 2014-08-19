@@ -35,6 +35,11 @@ else
                 <a href="@Umbraco.NiceUrl(Convert.ToInt32(@item.Fields["id"]))">
                     @Html.Raw(item.Fields["searchTitle"])
                 </a>
+                @Html.Raw(item.Fields["nodeName"])
+                @if (item.Fields.ContainsKey("searchHighlight"))
+                {
+                    <p>@Html.Raw(item.Fields["searchHighlight"])</p>
+                }
             </li>
         }
     </ul>
