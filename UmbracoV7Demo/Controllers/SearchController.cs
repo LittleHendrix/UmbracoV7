@@ -15,6 +15,7 @@ namespace UmbracoV7Demo.Controllers
 
     using Examine;
     using Examine.LuceneEngine;
+    using Examine.LuceneEngine.SearchCriteria;
     using Examine.Providers;
     using Examine.SearchCriteria;
 
@@ -142,7 +143,7 @@ namespace UmbracoV7Demo.Controllers
                     {
                         queryBuilder =
                             searchCriteria.GroupedOr(
-                                new[] { "nodeName", "metaTitle", "metaDescription", "bodyText" }, 
+                                new[] { "nodeName", "metaTitle", "metaDescription", "pageHeading", "bodyText" }, 
                                 searchValue);
                     }
                     else
@@ -150,7 +151,7 @@ namespace UmbracoV7Demo.Controllers
                         queryBuilder =
                             queryBuilder.Or()
                                 .GroupedOr(
-                                    new[] { "nodeName", "metaTitle", "metaDescription", "bodyText" }, 
+                                    new[] { "nodeName", "metaTitle", "metaDescription", "pageHeading", "bodyText" },
                                     searchValue);
                     }
                 }
@@ -186,16 +187,16 @@ namespace UmbracoV7Demo.Controllers
                     foreach (SearchResult item in searchResults)
                     {
                         const string FieldName = "bodyText";
-                        string searchHighlight;
+                        string searchHighlight = string.Empty;
                         string searchTitle = item.Fields["nodeName"];
 
                         if (item.Fields.ContainsKey(FieldName))
                         {
                             string fieldValue = item.Fields[FieldName];
                             searchHighlight = LuceneHighlightHelper.Instance.GetHighlight(
-                                fieldValue, 
-                                FieldName, 
-                                luceneSearcher, 
+                                fieldValue,
+                                FieldName,
+                                luceneSearcher,
                                 searchTerms);
 
                             if (string.IsNullOrEmpty(searchHighlight))
@@ -210,35 +211,24 @@ namespace UmbracoV7Demo.Controllers
                                         this.Umbraco.Truncate(item.Fields["metaDescription"], 200).ToString();
                                 }
                             }
-                            else
-                            {
-                                foreach (
-                                    string searchTerm in
-                                        searchTerms.Split(' ')
-                                            .Where(searchTerm => !string.IsNullOrEmpty(searchTerm.RemoveStopWords())))
-                                {
-                                    searchHighlight = Regex.Replace(
-                                        searchHighlight, 
-                                        searchTerm, 
-                                        "<strong>$&</strong>", 
-                                        RegexOptions.IgnoreCase);
 
-                                    searchTitle = Regex.Replace(
-                                        searchTitle, 
-                                        searchTerm, 
-                                        "<strong>$&</strong>", 
-                                        RegexOptions.IgnoreCase);
-                                }
-                            }
-
-                            item.Fields.Add("searchHighlight", searchHighlight);
                         }
                         else if (item.Fields.ContainsKey("metaDescription"))
                         {
-                            searchHighlight = this.Umbraco.Truncate(item.Fields["metaDescription"], 200).ToString();
-                            item.Fields.Add("searchHighlight", searchHighlight);
+                            searchHighlight =
+                                        this.Umbraco.Truncate(item.Fields["metaDescription"], 200).ToString();
                         }
 
+                        foreach (
+                            string searchTerm in
+                                searchTerms.Split(' ')
+                                    .Where(searchTerm => !string.IsNullOrEmpty(searchTerm.RemoveStopWords())))
+                        {
+                            searchHighlight = HighlightText(searchHighlight, searchTerm);
+                            searchTitle = HighlightText(searchTitle, searchTerm);
+                        }
+
+                        item.Fields.Add("searchHighlight", searchHighlight);
                         item.Fields.Add("searchTitle", searchTitle);
                     }
                 }
@@ -261,6 +251,12 @@ namespace UmbracoV7Demo.Controllers
             searchResultModel.SearchTerms = searchTerms;
 
             return searchResultModel;
+        }
+
+        private static string HighlightText(string searchHighlight, string searchTerm)
+        {
+            searchHighlight = Regex.Replace(searchHighlight, searchTerm, "<strong>$&</strong>", RegexOptions.IgnoreCase);
+            return searchHighlight;
         }
 
         #endregion

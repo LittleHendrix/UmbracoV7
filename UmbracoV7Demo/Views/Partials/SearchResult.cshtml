@@ -32,10 +32,9 @@ else
         @foreach (var item in Model.Results)
         {
             <li>
-                <a href="@Umbraco.NiceUrl(Convert.ToInt32(@item.Fields["id"]))">
+                <a href="@Umbraco.NiceUrl(Convert.ToInt32(@item.Id))">
                     @Html.Raw(item.Fields["searchTitle"])
                 </a>
-                @Html.Raw(item.Fields["nodeName"])
                 @if (item.Fields.ContainsKey("searchHighlight"))
                 {
                     <p>@Html.Raw(item.Fields["searchHighlight"])</p>
