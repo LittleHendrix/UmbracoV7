@@ -29,7 +29,7 @@ namespace UmbracoV7Demo.Core
         /// <summary>
         /// The lucene instance.
         /// </summary>
-        private static readonly LuceneHighlightHelper LuceneInstance = new LuceneHighlightHelper();
+        // private static readonly LuceneHighlightHelper LuceneInstance = new LuceneHighlightHelper();
 
         #endregion
 
@@ -68,8 +68,17 @@ namespace UmbracoV7Demo.Core
         {
             get
             {
-                return LuceneInstance;
+                return Nested.LuceneInstance;
             }
+        }
+
+        private class Nested
+        {
+            static Nested()
+            {
+            }
+
+            internal static readonly LuceneHighlightHelper LuceneInstance = new LuceneHighlightHelper();
         }
 
         /// <summary>
