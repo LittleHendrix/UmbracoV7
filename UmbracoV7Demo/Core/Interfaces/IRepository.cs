@@ -6,8 +6,7 @@
 //   The Repository interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-namespace UmbracoV7Demo.Database.Repositories
+namespace UmbracoV7Demo.Core.Interfaces
 {
     using System;
     using System.Linq;
@@ -23,10 +22,10 @@ namespace UmbracoV7Demo.Database.Repositories
         #region Public Methods and Operators
 
         /// <summary>
-        /// The get all.
+        ///     The get all.
         /// </summary>
         /// <returns>
-        /// The <see cref="IQueryable"/>.
+        ///     The <see cref="IQueryable" />.
         /// </returns>
         IQueryable<T> GetAll();
 
@@ -65,6 +64,14 @@ namespace UmbracoV7Demo.Database.Repositories
         #region Public Methods and Operators
 
         /// <summary>
+        /// The insert.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        void Create(T entity);
+
+        /// <summary>
         /// The delete.
         /// </summary>
         /// <param name="entity">
@@ -73,12 +80,12 @@ namespace UmbracoV7Demo.Database.Repositories
         void Delete(T entity);
 
         /// <summary>
-        /// The insert.
+        /// The update.
         /// </summary>
         /// <param name="entity">
         /// The entity.
         /// </param>
-        void Insert(T entity);
+        void Update(T entity);
 
         #endregion
     }

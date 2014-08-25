@@ -13,6 +13,8 @@ namespace UmbracoV7Demo.Database.Repositories
     using System.Linq;
     using System.Linq.Expressions;
 
+    using UmbracoV7Demo.Core.Interfaces;
+
     /// <summary>
     /// The base repository.
     /// </summary>
