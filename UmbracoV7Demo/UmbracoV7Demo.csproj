@@ -52,12 +52,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\UmbracoCms.Core.7.1.5\lib\businesslogic.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core">
-      <HintPath>..\packages\Castle.Core.3.3.0\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
-    </Reference>
     <Reference Include="ClientDependency.Core">
       <HintPath>..\packages\ClientDependency.1.7.1.2\lib\ClientDependency.Core.dll</HintPath>
     </Reference>
@@ -278,9 +272,10 @@
   <ItemGroup>
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\XmlSitemapSurfaceController.cs" />
+    <Compile Include="Core\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Core\LuceneHighlightHelper.cs" />
     <Compile Include="Database\Repositories\BaseRepository.cs" />
-    <Compile Include="Database\Repositories\IRepository.cs" />
+    <Compile Include="Core\Interfaces\IRepository.cs" />
     <Compile Include="ViewModels\SearchResultsViewModel.cs" />
     <Content Include="css\dummy.txt" />
     <Content Include="css\typeahead.css" />
@@ -294,7 +289,9 @@
     <Content Include="scripts\bootstrap-typeahead.js" />
     <Content Include="scripts\dummy.txt" />
     <Content Include="usercontrols\dummy.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ContactSurfaceController.cs" />
