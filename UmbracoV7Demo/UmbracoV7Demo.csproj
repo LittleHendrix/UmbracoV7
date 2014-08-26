@@ -276,7 +276,6 @@
     <Compile Include="Controllers\XmlSitemapSurfaceController.cs" />
     <Compile Include="Core\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Core\LuceneHighlightHelper.cs" />
-    <Compile Include="Database\Repositories\BaseRepository.cs" />
     <Compile Include="Core\Interfaces\IRepository.cs" />
     <Compile Include="ViewModels\SearchResultsViewModel.cs" />
     <Content Include="css\dummy.txt" />
@@ -343,6 +342,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\images\" />
+    <Folder Include="Database\Repositories\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
