@@ -34,21 +34,21 @@ namespace UmbracoV7Demo.Extensions.EventHandlers
         /// <param name="applicationContext">
         /// The application context.
         /// </param>
-        //protected override void ApplicationStarted(
-        //    UmbracoApplicationBase umbracoApplication, 
-        //    ApplicationContext applicationContext)
-        //{
-        //    var builder = new ContainerBuilder();
+        protected override void ApplicationStarted(
+            UmbracoApplicationBase umbracoApplication,
+            ApplicationContext applicationContext)
+        {
+            var builder = new ContainerBuilder();
 
-        //    // register all controllers found in this assembly
-        //    builder.RegisterControllers(typeof(UmbracoV7Demo).Assembly);
+            // register all controllers found in this assembly
+            builder.RegisterControllers(typeof(UmbracoV7Demo).Assembly);
 
-        //    // add custom class to the container as Transient instance
-        //    builder.RegisterType<NewsViewModel>();
+            // add custom class to the container as Transient instance
+            builder.RegisterType<NewsViewModel>();
 
-        //    IContainer container = builder.Build();
-        //    DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-        //}
+            IContainer container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        }
 
         #endregion
     }
