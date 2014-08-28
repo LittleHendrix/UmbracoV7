@@ -10,7 +10,6 @@ namespace UmbracoV7Demo.Core.Interfaces
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Linq.Expressions;
 
     /// <summary>
@@ -23,12 +22,20 @@ namespace UmbracoV7Demo.Core.Interfaces
         #region Public Methods and Operators
 
         /// <summary>
-        /// The as queryable.
+        /// The insert.
         /// </summary>
-        /// <returns>
-        /// The <see cref="IQueryable"/>.
-        /// </returns>
-        IQueryable<T> AsQueryable();
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        void Create(T entity);
+
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="entity">
+        /// The entity.
+        /// </param>
+        void Delete(T entity);
 
         /// <summary>
         /// The find.
@@ -53,10 +60,10 @@ namespace UmbracoV7Demo.Core.Interfaces
         T First(Expression<Func<T, bool>> predicate);
 
         /// <summary>
-        /// The get all.
+        ///     The get all.
         /// </summary>
         /// <returns>
-        /// The <see cref="IEnumerable"/>.
+        ///     The <see cref="IEnumerable" />.
         /// </returns>
         IEnumerable<T> GetAll();
 
@@ -92,34 +99,6 @@ namespace UmbracoV7Demo.Core.Interfaces
         /// The <see cref="T"/>.
         /// </returns>
         T SingleOrDefault(Expression<Func<T, bool>> predicate);
-
-        #endregion
-    }
-
-    /// <summary>
-    /// The EditableRepository interface.
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public interface IEditableRepository<T> : IRepository<T>
-    {
-        #region Public Methods and Operators
-
-        /// <summary>
-        /// The insert.
-        /// </summary>
-        /// <param name="entity">
-        /// The entity.
-        /// </param>
-        void Create(T entity);
-
-        /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="entity">
-        /// The entity.
-        /// </param>
-        void Delete(T entity);
 
         /// <summary>
         /// The update.

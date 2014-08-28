@@ -3,7 +3,8 @@
     using Umbraco.Core;
     using Umbraco.Core.Persistence;
 
-    using UmbracoV7Demo.Models;
+    using UmbracoV7Demo.Infrastructure.Data.Models;
+    using UmbracoV7Demo.Infrastructure;
 
     public class RegisterEvents : ApplicationEventHandler
     {

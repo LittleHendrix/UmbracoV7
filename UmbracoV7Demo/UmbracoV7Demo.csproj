@@ -283,8 +283,12 @@
     <Compile Include="Core\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Core\LuceneHighlightHelper.cs" />
     <Compile Include="Core\Interfaces\IRepository.cs" />
+    <Compile Include="Core\Interfaces\IUnitOfWorkProvider.cs" />
+    <Compile Include="Infrastructure\Providers\PetaPocoUnitOfWorkProvider.cs" />
+    <Compile Include="Infrastructure\Repositories\PetaPocoGenericRepository.cs" />
     <Compile Include="Models\BlogComments.cs" />
     <Compile Include="Extensions\EventHandlers\RegisterEvents.cs" />
+    <Compile Include="Infrastructure\Uow\PetaPocoUnitOfWork.cs" />
     <Compile Include="ViewModels\SearchResultsViewModel.cs" />
     <Compile Include="Web\UmbracoV7DemoApplication.cs" />
     <Content Include="css\dummy.txt" />
@@ -351,7 +355,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\images\" />
-    <Folder Include="Data\Repositories\" />
     <Folder Include="Extensions\Utilities\" />
   </ItemGroup>
   <ItemGroup>

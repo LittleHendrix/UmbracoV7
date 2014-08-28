@@ -31,7 +31,7 @@ namespace UmbracoV7Demo.Controllers
         /// <summary>
         /// The _news view model.
         /// </summary>
-        private readonly NewsViewModel _newsViewModel;
+        private readonly NewsViewModel newsViewModel;
 
         #endregion
 
@@ -45,7 +45,7 @@ namespace UmbracoV7Demo.Controllers
         /// </param>
         public NewsOverviewController(NewsViewModel newsViewModel)
         {
-            this._newsViewModel = newsViewModel;
+            this.newsViewModel = newsViewModel;
         }
 
         #endregion
@@ -67,10 +67,10 @@ namespace UmbracoV7Demo.Controllers
             string page = this.HttpContext.Request.QueryString["Page"] ?? "1";
             int pageInt = Convert.ToInt32(page);
 
-            this._newsViewModel.Page = pageInt;
-            this._newsViewModel.BlogPost = GetPagedBlogPost(this._newsViewModel);
+            this.newsViewModel.Page = pageInt;
+            this.newsViewModel.BlogPost = GetPagedBlogPost(this.newsViewModel);
 
-            return this.CurrentTemplate(this._newsViewModel);
+            return this.CurrentTemplate(this.newsViewModel);
         }
 
         #endregion

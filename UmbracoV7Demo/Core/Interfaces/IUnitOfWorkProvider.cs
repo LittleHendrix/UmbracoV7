@@ -1,26 +1,28 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IUnitOfWork.cs" company="">
+// <copyright file="IUnitOfWorkProvider.cs" company="">
 //   
 // </copyright>
 // <summary>
-//   The UnitOfWork interface.
+//   The UnitOfWorkProvider interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace UmbracoV7Demo.Core.Interfaces
 {
-    using System;
-
     /// <summary>
-    ///     The UnitOfWork interface.
+    /// The UnitOfWorkProvider interface.
     /// </summary>
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWorkProvider
     {
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The commit.
+        /// The get unit of work.
         /// </summary>
-        void Commit();
+        /// <returns>
+        /// The <see cref="IUnitOfWork"/>.
+        /// </returns>
+        IUnitOfWork GetUnitOfWork();
 
         #endregion
     }

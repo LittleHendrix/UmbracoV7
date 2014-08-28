@@ -1,4 +1,4 @@
-﻿namespace UmbracoV7Demo.Models
+﻿namespace UmbracoV7Demo.Infrastructure.Data.Models
 {
     using Umbraco.Core.Persistence;
     using Umbraco.Core.Persistence.DatabaseAnnotations;
