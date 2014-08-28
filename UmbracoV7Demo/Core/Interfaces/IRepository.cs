@@ -9,6 +9,7 @@
 namespace UmbracoV7Demo.Core.Interfaces
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
@@ -22,12 +23,42 @@ namespace UmbracoV7Demo.Core.Interfaces
         #region Public Methods and Operators
 
         /// <summary>
-        ///     The get all.
+        /// The as queryable.
         /// </summary>
         /// <returns>
-        ///     The <see cref="IQueryable" />.
+        /// The <see cref="IQueryable"/>.
         /// </returns>
-        IQueryable<T> GetAll();
+        IQueryable<T> AsQueryable();
+
+        /// <summary>
+        /// The find.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
+
+        /// <summary>
+        /// The first.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
+        T First(Expression<Func<T, bool>> predicate);
+
+        /// <summary>
+        /// The get all.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        IEnumerable<T> GetAll();
 
         /// <summary>
         /// The get by id.
@@ -41,15 +72,26 @@ namespace UmbracoV7Demo.Core.Interfaces
         T GetById(int id);
 
         /// <summary>
-        /// The search for.
+        /// The single.
         /// </summary>
         /// <param name="predicate">
         /// The predicate.
         /// </param>
         /// <returns>
-        /// The <see cref="IQueryable"/>.
+        /// The <see cref="T"/>.
         /// </returns>
-        IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate);
+        T Single(Expression<Func<T, bool>> predicate);
+
+        /// <summary>
+        /// The single or default.
+        /// </summary>
+        /// <param name="predicate">
+        /// The predicate.
+        /// </param>
+        /// <returns>
+        /// The <see cref="T"/>.
+        /// </returns>
+        T SingleOrDefault(Expression<Func<T, bool>> predicate);
 
         #endregion
     }

@@ -11,6 +11,8 @@ namespace UmbracoV7Demo.Core.Interfaces
 {
     using System;
 
+    using UmbracoV7Demo.Models;
+
     /// <summary>
     /// The UnitOfWork interface.
     /// </summary>
@@ -18,15 +20,12 @@ namespace UmbracoV7Demo.Core.Interfaces
     {
         #region Public Methods and Operators
 
+        IRepository<BlogComments> BlogCommentsRepository { get; }
+
         /// <summary>
         /// The commit.
         /// </summary>
         void Commit();
-
-        /// <summary>
-        /// The rollback.
-        /// </summary>
-        void Rollback();
 
         #endregion
     }
