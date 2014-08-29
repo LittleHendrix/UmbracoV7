@@ -6,7 +6,7 @@
     [TableName("BlogCommments")]
     [PrimaryKey("BlogCommentId", autoIncrement = true)]
     [ExplicitColumns]
-    public class BlogComments
+    public class BlogComment
     {
         [Column("id")]
         [PrimaryKeyColumn(AutoIncrement = true)]

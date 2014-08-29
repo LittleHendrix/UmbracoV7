@@ -197,4 +197,5 @@ Cached/
 # Don't ignore Umbraco packages (VisualStudio.gitignore mistakes this for a NuGet packages folder)
 # Make sure to include details from VisualStudio.gitignore BEFORE this
 !**/App_Data/[Pp]ackages/
+!**/App_Data/*.sdf
 !**/[Uu]mbraco/developer/[Pp]ackages

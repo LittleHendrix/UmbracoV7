@@ -17,7 +17,7 @@
             if (!db.TableExist("BlogComments"))
             {
                 //Create DB table - and set overwrite to false
-                db.CreateTable<BlogComments>(false);
+                db.CreateTable<BlogComment>(false);
             }
         }
     }
