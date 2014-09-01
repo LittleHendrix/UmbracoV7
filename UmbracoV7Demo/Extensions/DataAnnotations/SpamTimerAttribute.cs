@@ -15,34 +15,31 @@ namespace UmbracoV7Demo.Extensions.DataAnnotations
     /// <summary>
     /// The spam protection attribute.
     /// </summary>
-    public class SpamProtectionAttribute : ValidationAttribute
+    public class SpamTimerAttribute : ValidationAttribute
     {
         public int Timespan { get; private set; }
 
-        public SpamProtectionAttribute(int timespan)
+        public SpamTimerAttribute(int timespan)
         {
             this.Timespan = timespan;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (value != null)
+            long timestamp;
+
+            if (long.TryParse(Convert.ToString(value), out timestamp))
             {
-                long timestamp = long.MaxValue;
+                var currentTime = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
 
-                if (long.TryParse(value.ToString(), out timestamp))
+                if (currentTime <= timestamp - this.Timespan)
                 {
-                    var currentTime = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
-
-                    if (currentTime <= timestamp - this.Timespan)
-                    {
-                        return
-                            new ValidationResult(
-                                string.Format(
-                                    "Invalid form submission. At least {0} seconds have to pass before form submission ({1}).",
-                                    this.Timespan.ToString(),
-                                    value.ToString()));
-                    }
+                    return
+                        new ValidationResult(
+                            string.Format(
+                                "Invalid form submission. At least {0} seconds have to pass before form submission ({1}).",
+                                this.Timespan.ToString(),
+                                value.ToString()));
                 }
             }
 

@@ -16,6 +16,7 @@
 
     using (Html.BeginUmbracoForm<ContactSurfaceController>("ContactUs", null, new { @class = "myForm", @id = "contactForm" }, FormMethod.Post))
     {
+        @Html.ValidationSummary()
         @Html.AntiForgeryToken()
     
         <div class="form-row">
@@ -43,7 +44,8 @@
         </div>
 
         <div class="form-row">
-            @Html.HiddenFor(m => m.Honeypot)
+            @Html.TextBoxFor(m => m.Honeypot, new { @style = "position:absolute;width:1px;height:1px;overflow:hidden;" })
+            @Html.ValidationMessageFor(m => m.Honeypot)
             @Html.SpamProtectionTimeStampFor(m => m.TimeStamp)
             @Html.HiddenFor(m => m.SubmitDate)
         </div>

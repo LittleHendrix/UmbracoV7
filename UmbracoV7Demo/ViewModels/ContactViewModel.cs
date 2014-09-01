@@ -7,10 +7,10 @@
 
     public class ContactViewModel
     {
-        [StringLength(0, ErrorMessage = "Gotcha!")]
+        [SpamPot(ErrorMessage = "Honeypot must be left empty.")]
         public string Honeypot { get; set; }
 
-        [SpamProtection(60)]
+        [SpamTimer(60)]
         public long TimeStamp { get; set; }
 
         [Required]

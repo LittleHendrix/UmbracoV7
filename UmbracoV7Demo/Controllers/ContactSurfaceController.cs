@@ -16,7 +16,6 @@ namespace UmbracoV7Demo.Controllers
     using Umbraco.Web.Mvc;
 
     using UmbracoV7Demo.Core;
-    using UmbracoV7Demo.Extensions.DataAnnotations;
     using UmbracoV7Demo.ViewModels;
 
     /// <summary>
