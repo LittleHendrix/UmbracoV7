@@ -1,55 +1,41 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UmbracoV7DemoApplication.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   The umbraco v 7 demo application.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-namespace UmbracoV7Demo.Web
+﻿namespace UmbracoV7Demo.Web
 {
-    using System;
+    using System.Reflection;
     using System.Web.Mvc;
 
     using Autofac;
     using Autofac.Integration.Mvc;
 
-    using Umbraco.Web;
+    using Umbraco.Core;
+    using Umbraco.Core.Persistence;
 
+    using UmbracoV7Demo.Infrastructure.Data.Models;
     using UmbracoV7Demo.ViewModels;
 
-    /// <summary>
-    ///     The umbraco v 7 demo application.
-    /// </summary>
-    public class UmbracoV7DemoApplication : UmbracoApplication
+    public class UmbracoV7DemoApplication : ApplicationEventHandler
     {
-        #region Methods
-
-        /// <summary>
-        /// The on application started.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected override void OnApplicationStarted(object sender, EventArgs e)
+        protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            base.OnApplicationStarted(sender, e);
+            // Get the Umbraco Database context
+            var db = applicationContext.DatabaseContext.Database;
+
+            //Check if the DB table does NOT exist
+            if (!db.TableExist("BlogComments"))
+            {
+                //Create DB table - and set overwrite to false
+                db.CreateTable<BlogComment>(false);
+            }
 
             this.SetUpDependencyInjection();
         }
 
-        /// <summary>
-        /// The set up dependency injection.
-        /// </summary>
         private void SetUpDependencyInjection()
         {
             var builder = new ContainerBuilder();
 
             // register all controllers found in this assembly
-            builder.RegisterControllers(typeof(UmbracoV7DemoApplication).Assembly);
+            //builder.RegisterControllers(typeof(UmbracoV7DemoApplication).Assembly);
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());
 
             // add custom class to the container as Transient instance
             builder.RegisterType<NewsViewModel>();
@@ -59,7 +45,5 @@ namespace UmbracoV7Demo.Web
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
-
-        #endregion
     }
 }
