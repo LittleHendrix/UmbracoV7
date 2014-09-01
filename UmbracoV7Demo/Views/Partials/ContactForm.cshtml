@@ -1,4 +1,5 @@
-﻿@using UmbracoV7Demo.ViewModels
+﻿@using System
+@using UmbracoV7Demo.ViewModels
 @using UmbracoV7Demo.Controllers
 @using UmbracoV7Demo.Extensions
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<ContactViewModel>
@@ -15,6 +16,8 @@
 
     using (Html.BeginUmbracoForm<ContactSurfaceController>("ContactUs", null, new { @class = "myForm", @id = "contactForm" }, FormMethod.Post))
     {
+        @Html.AntiForgeryToken()
+    
         <div class="form-row">
             @Html.LabelFor(m => m.Name, "Name", new { @name = "nameLbl", @class = "frmLabel" })
             @Html.CustomTextBoxFor(m => m.Name, new { @class = "frmTxtbox", placeholder = "Enter your name" })
@@ -40,7 +43,8 @@
         </div>
 
         <div class="form-row">
-            @Html.HiddenFor(m => m.Captcha)
+            @Html.HiddenFor(m => m.Honeypot)
+            @Html.SpamProtectionTimeStampFor(m => m.TimeStamp)
             @Html.HiddenFor(m => m.SubmitDate)
         </div>
 

@@ -39,6 +39,7 @@
 
             // add custom class to the container as Transient instance
             builder.RegisterType<NewsViewModel>();
+            builder.RegisterType<ContactViewModel>();
 
             // bind abstract IUnitOfWork with specific provider (petapoco, EF, ...)
             // builder.RegisterType<ppUnitOfWOrk>().As<IUnitOfWork>().InstancePerRequest();

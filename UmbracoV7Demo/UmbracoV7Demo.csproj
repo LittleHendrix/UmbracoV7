@@ -283,6 +283,7 @@
     <Compile Include="Core\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Core\LuceneHighlightHelper.cs" />
     <Compile Include="Core\Interfaces\IRepository.cs" />
+    <Compile Include="Extensions\DataAnnotations\SpamProtectionAttribute.cs" />
     <Compile Include="Infrastructure\Repositories\PpGenericRepository.cs" />
     <Compile Include="Models\BlogComment.cs" />
     <Compile Include="Extensions\EventHandlers\RegisterEvents.cs" />
@@ -343,6 +344,31 @@
     <Content Include="config\BaseRestExtensions.config" />
     <Content Include="config\applications.config" />
     <Content Include="config\404handlers.config" />
+    <Content Include="Views\AltLastestNews.cshtml" />
+    <Content Include="Views\ContactUs.cshtml" />
+    <Content Include="Views\Homepage.cshtml" />
+    <Content Include="Views\Layout.cshtml" />
+    <Content Include="Views\NewsItem.cshtml" />
+    <Content Include="Views\NewsOverview.cshtml" />
+    <Content Include="Views\Partials\ContactForm.cshtml" />
+    <Content Include="Views\Partials\LatestNews.cshtml" />
+    <Content Include="Views\Partials\RssLink.cshtml" />
+    <Content Include="Views\Partials\ScriptsValidation.cshtml" />
+    <Content Include="Views\Partials\SearchBoxJson.cshtml" />
+    <Content Include="Views\Partials\SearchResult.cshtml" />
+    <Content Include="Views\Partials\umbAbout.cshtml" />
+    <Content Include="Views\Partials\umbFeatures.cshtml" />
+    <Content Include="Views\Partials\umbHomepageBanner.cshtml" />
+    <Content Include="Views\Partials\umbLatestNewsWidget.cshtml" />
+    <Content Include="Views\Partials\umbNewsOverviewWidget.cshtml" />
+    <Content Include="Views\Partials\umbSocial.cshtml" />
+    <Content Include="Views\Partials\umbTopNavigation.cshtml" />
+    <Content Include="Views\Partials\XmlSitemapPartial.cshtml" />
+    <Content Include="Views\Rss.cshtml" />
+    <Content Include="Views\Search.cshtml" />
+    <Content Include="Views\TextPage.cshtml" />
+    <Content Include="Views\umbNewsOverview.cshtml" />
+    <Content Include="Views\XmlSitemap.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -354,6 +380,7 @@
   <ItemGroup>
     <Folder Include="assets\images\" />
     <Folder Include="Extensions\Utilities\" />
+    <Folder Include="Views\MacroPartials\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

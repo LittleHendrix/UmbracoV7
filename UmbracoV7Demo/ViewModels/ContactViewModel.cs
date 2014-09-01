@@ -3,9 +3,15 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    using UmbracoV7Demo.Extensions.DataAnnotations;
+
     public class ContactViewModel
     {
-        public string Captcha { get; set; }
+        [StringLength(0, ErrorMessage = "Gotcha!")]
+        public string Honeypot { get; set; }
+
+        [SpamProtection(60)]
+        public long TimeStamp { get; set; }
 
         [Required]
         public DateTime SubmitDate { get; set; }

@@ -6,7 +6,6 @@
 //   The html helper extensions.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace UmbracoV7Demo.Extensions
 {
     using System;
@@ -21,11 +20,34 @@ namespace UmbracoV7Demo.Extensions
     using umbraco;
 
     /// <summary>
-    /// The html helper extensions.
+    ///     The html helper extensions.
     /// </summary>
     public static class HtmlHelperExtensions
     {
         #region Public Methods and Operators
+
+        /// <summary>
+        /// The custom text area for.
+        /// </summary>
+        /// <param name="htmlHelper">
+        /// The html helper.
+        /// </param>
+        /// <param name="expression">
+        /// The expression.
+        /// </param>
+        /// <typeparam name="TModel">
+        /// </typeparam>
+        /// <typeparam name="TProperty">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="MvcHtmlString"/>.
+        /// </returns>
+        public static MvcHtmlString CustomTextAreaFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression)
+        {
+            return CustomTextAreaFor(htmlHelper, expression, null);
+        }
 
         /// <summary>
         /// The custom text area for.
@@ -76,6 +98,29 @@ namespace UmbracoV7Demo.Extensions
         /// <param name="expression">
         /// The expression.
         /// </param>
+        /// <typeparam name="TModel">
+        /// </typeparam>
+        /// <typeparam name="TProperty">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="MvcHtmlString"/>.
+        /// </returns>
+        public static MvcHtmlString CustomTextBoxFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression)
+        {
+            return CustomTextBoxFor(htmlHelper, expression, null);
+        }
+
+        /// <summary>
+        /// The custom text box for.
+        /// </summary>
+        /// <param name="htmlHelper">
+        /// The html helper.
+        /// </param>
+        /// <param name="expression">
+        /// The expression.
+        /// </param>
         /// <param name="htmlAttributes">
         /// The html attributes.
         /// </param>
@@ -105,6 +150,64 @@ namespace UmbracoV7Demo.Extensions
             }
 
             return htmlHelper.TextBoxFor(expression, attributes);
+        }
+
+        /// <summary>
+        /// The spam protection time stamp for.
+        /// </summary>
+        /// <param name="htmlHelper">
+        /// The html helper.
+        /// </param>
+        /// <param name="expression">
+        /// The expression.
+        /// </param>
+        /// <typeparam name="TModel">
+        /// </typeparam>
+        /// <typeparam name="TProperty">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="MvcHtmlString"/>.
+        /// </returns>
+        public static MvcHtmlString SpamProtectionTimeStampFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression)
+        {
+            return SpamProtectionTimeStampFor(htmlHelper, expression, null);
+        }
+
+        /// <summary>
+        /// The spam protection time stamp.
+        /// </summary>
+        /// <param name="htmlHelper">
+        /// The html helper.
+        /// </param>
+        /// <param name="expression">
+        /// The expression.
+        /// </param>
+        /// <param name="htmlAttributes">
+        /// The html attributes.
+        /// </param>
+        /// <typeparam name="TModel">
+        /// </typeparam>
+        /// <typeparam name="TProperty">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="MvcHtmlString"/>.
+        /// </returns>
+        public static MvcHtmlString SpamProtectionTimeStampFor<TModel, TProperty>(
+            this HtmlHelper<TModel> htmlHelper, 
+            Expression<Func<TModel, TProperty>> expression, 
+            object htmlAttributes)
+        {
+            string propertyName = ExpressionHelper.GetExpressionText(expression);
+            var timestamp = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
+            var input = new TagBuilder("input");
+            input.MergeAttribute("name", htmlHelper.AttributeEncode(htmlHelper.ViewData.TemplateInfo.GetFullHtmlFieldName(propertyName)));
+            input.MergeAttribute("value", timestamp.ToString());
+            input.MergeAttribute("type", "hidden");
+            input.MergeAttributes(new RouteValueDictionary(htmlAttributes));
+
+            return MvcHtmlString.Create(input.ToString(TagRenderMode.SelfClosing));
         }
 
         /// <summary>
