@@ -1,31 +1,54 @@
-﻿namespace UmbracoV7Demo.Controllers
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ContactSurfaceController.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   The contact surface controller.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace UmbracoV7Demo.Controllers
 {
     using System;
     using System.Web.Mvc;
     using System.Web.UI;
-    using UmbracoV7Demo.Core;
-    using UmbracoV7Demo.ViewModels;
+
     using Umbraco.Web.Mvc;
 
+    using UmbracoV7Demo.Core;
+    using UmbracoV7Demo.ViewModels;
+
+    /// <summary>
+    /// The contact surface controller.
+    /// </summary>
     public class ContactSurfaceController : SurfaceController
     {
+        private readonly ContactViewModel contactViewModel;
+
+        public ContactSurfaceController(ContactViewModel contactViewModel)
+        {
+            this.contactViewModel = contactViewModel;
+        }
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// The contact us post.
+        /// </summary>
+        /// <param name="model">
+        /// The model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
+        /// <exception cref="Exception">
+        /// </exception>
         [OutputCache(Duration = 0, VaryByParam = "none", Location = OutputCacheLocation.Any, NoStore = true)]
+        [ValidateAntiForgeryToken]
         [HttpPost]
         [ActionName("ContactUs")]
         public ActionResult ContactUsPost(ContactViewModel model)
         {
-            if (model.Captcha != null)
-            {
-                // Captcha is set as a hidden field to trap bots
-                this.ModelState.AddModelError("Captcha", "Captcha must be left empty");
-            }
-
-            TimeSpan diff = DateTime.UtcNow - model.SubmitDate;
-            if (diff.TotalSeconds < 12)
-            {
-                this.ModelState.AddModelError("SubmitDate", "Your last submission is still being processed. Form last submitted at: " + @model.SubmitDate.ToString("f"));
-            }
-
             if (!this.ModelState.IsValid)
             {
                 return this.CurrentUmbracoPage();
@@ -50,5 +73,20 @@
 
             return this.RedirectToCurrentUmbracoPage();
         }
+
+        /// <summary>
+        /// The render contact form.
+        /// @Html.Action("RenderContactForm","ContactSurface");
+        /// </summary>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
+        [ChildActionOnly]
+        public ActionResult RenderContactForm()
+        {
+            return this.PartialView("ContactForm", this.contactViewModel);
+        }
+
+        #endregion
     }
 }

@@ -66,4 +66,18 @@
         });
     }
 
+    $.validator.addMethod('checkPot', function (value, element) {
+        return this.optional(element) || !value;
+        //if (!value) {
+        //    return true;
+        //} else {
+        //    return false;
+        //}
+    }, '');
+
+    $.validator.unobtrusive.adapters.add('honeypot', {}, function (options) {
+        options.rules['checkPot'] = true;
+        options.messages['checkPot'] = options.message;
+    });
+
 })(jQuery);

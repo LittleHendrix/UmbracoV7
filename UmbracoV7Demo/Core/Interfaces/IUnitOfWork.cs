@@ -1,33 +1,13 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IUnitOfWork.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   The UnitOfWork interface.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace UmbracoV7Demo.Core.Interfaces
+﻿namespace UmbracoV7Demo.Core.Interfaces
 {
     using System;
 
-    /// <summary>
-    /// The UnitOfWork interface.
-    /// </summary>
-    internal interface IUnitOfWork : IDisposable
+    using UmbracoV7Demo.Infrastructure.Data.Models;
+
+    public interface IUnitOfWork : IDisposable
     {
-        #region Public Methods and Operators
+        IRepository<BlogComment> BlogComments { get; }
 
-        /// <summary>
-        /// The commit.
-        /// </summary>
         void Commit();
-
-        /// <summary>
-        /// The rollback.
-        /// </summary>
-        void Rollback();
-
-        #endregion
     }
 }
