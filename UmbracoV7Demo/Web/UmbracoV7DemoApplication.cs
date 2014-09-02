@@ -5,6 +5,7 @@
 
     using Autofac;
     using Autofac.Integration.Mvc;
+    using Autofac.Integration.WebApi;
 
     using Umbraco.Core;
     using Umbraco.Core.Persistence;
@@ -37,6 +38,8 @@
             // register all controllers found in this assembly
             //builder.RegisterControllers(typeof(UmbracoV7DemoApplication).Assembly);
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
+
+            builder.RegisterApiControllers(typeof(UmbracoApplication).Assembly);
 
             // add custom class to the container as Transient instance
             builder.RegisterType<NewsViewModel>();
