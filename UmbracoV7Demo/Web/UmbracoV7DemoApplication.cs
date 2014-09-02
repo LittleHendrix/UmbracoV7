@@ -11,7 +11,9 @@
     using Umbraco.Core.Persistence;
     using Umbraco.Web;
 
+    using UmbracoV7Demo.Core.Interfaces;
     using UmbracoV7Demo.Infrastructure.Data.Models;
+    using UmbracoV7Demo.Infrastructure.Uow;
     using UmbracoV7Demo.ViewModels;
 
     public class UmbracoV7DemoApplication : ApplicationEventHandler
@@ -36,7 +38,7 @@
             var builder = new ContainerBuilder();
 
             // register all controllers found in this assembly
-            //builder.RegisterControllers(typeof(UmbracoV7DemoApplication).Assembly);
+            // builder.RegisterControllers(typeof(UmbracoV7DemoApplication).Assembly);
             builder.RegisterControllers(Assembly.GetExecutingAssembly());
 
             builder.RegisterApiControllers(typeof(UmbracoApplication).Assembly);
@@ -44,6 +46,11 @@
             // add custom class to the container as Transient instance
             builder.RegisterType<NewsViewModel>();
             builder.RegisterType<ContactViewModel>();
+
+            // if components appear in many object graphs using the following method to gain exra performance
+            // builder.Register(c => new MyCustomModel());
+
+            builder.RegisterType<PpUnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
 
             // bind abstract IUnitOfWork with specific provider (petapoco, EF, ...)
             // builder.RegisterType<ppUnitOfWOrk>().As<IUnitOfWork>().InstancePerRequest();

@@ -10,7 +10,7 @@
 
     public abstract class PpUnitOfWork : IUnitOfWork
     {
-        private readonly GenericRepository<BlogComment> blogRepository;
+        private readonly PpGenericRepository<BlogComment> blogCommentsRepository;
 
         private readonly Database db;
 
@@ -22,14 +22,14 @@
             this.db = ApplicationContext.Current.DatabaseContext.Database;
             this.petaTranaction = new Transaction(this.db);
 
-            this.blogRepository = new GenericRepository<BlogComment>(this.db);
+            this.blogCommentsRepository = new PpGenericRepository<BlogComment>(this.db);
         }
 
-        public IRepository<BlogComment> BlogComments
+        public IRepository<BlogComment> BlogCommentsRepositry
         {
             get
             {
-                return this.blogRepository;
+                return this.blogCommentsRepository;
             }
         }
 

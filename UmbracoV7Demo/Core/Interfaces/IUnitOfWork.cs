@@ -6,7 +6,7 @@
 
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<BlogComment> BlogComments { get; }
+        IRepository<BlogComment> BlogCommentsRepositry { get; }
 
         void Commit();
     }

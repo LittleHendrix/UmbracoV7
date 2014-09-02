@@ -8,11 +8,11 @@
 
     using UmbracoV7Demo.Core.Interfaces;
 
-    public class GenericRepository<T> : IRepository<T> where T : class
+    public class PpGenericRepository<T> : IRepository<T> where T : class
     {
         private readonly Database db;
 
-        public GenericRepository(Database db)
+        public PpGenericRepository(Database db)
         {
             this.db = db;
         }
@@ -24,12 +24,12 @@
 
         public virtual IEnumerable<T> GetAll()
         {
-            return this.db.Query<T>("SELECT * FROM @0", typeof(T));
+            return this.db.Query<T>("SELECT * FROM @0", typeof(T).ToString());
         }
 
         public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return this.db.Query<T>("SELECT * FROM @0 WHERE @1", typeof(T), predicate);
+            return this.db.Query<T>("SELECT * FROM @0 WHERE @1", typeof(T).ToString(), predicate);
         }
 
         public virtual void Create(T entity)
@@ -40,6 +40,11 @@
         public virtual void Delete(T entity)
         {
             this.db.Delete(typeof(T).ToString(), "id", entity);
+        }
+
+        public virtual void Delete(int id)
+        {
+            this.db.Delete<T>("WHERE id=@0", id);
         }
 
         public virtual void Update(T entity)
