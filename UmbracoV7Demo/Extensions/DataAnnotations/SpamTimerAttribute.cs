@@ -32,7 +32,7 @@ namespace UmbracoV7Demo.Extensions.DataAnnotations
             {
                 var currentTime = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
 
-                if (currentTime <= timestamp - this.Timespan)
+                if (currentTime <= timestamp + this.Timespan)
                 {
                     return
                         new ValidationResult(

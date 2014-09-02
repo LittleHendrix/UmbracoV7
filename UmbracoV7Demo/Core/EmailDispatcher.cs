@@ -91,7 +91,7 @@ namespace UmbracoV7Demo.Core
 
             if (content.HasProperty(datetimePropperty))
             {
-                content.SetValue(datetimePropperty, model.SubmitDate.ToString("f"));
+                content.SetValue(datetimePropperty, model.TimeStamp.ToString("f"));
             }
 
             // cs.SaveAndPublishWithStatus(content);

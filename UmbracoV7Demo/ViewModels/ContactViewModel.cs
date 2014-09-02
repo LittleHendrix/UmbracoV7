@@ -10,11 +10,8 @@
         [SpamPot(ErrorMessage = "Honeypot must be left empty.")]
         public string Honeypot { get; set; }
 
-        [SpamTimer(60)]
+        [SpamTimer(12)]
         public long TimeStamp { get; set; }
-
-        [Required]
-        public DateTime SubmitDate { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
         [StringLength(20)]

@@ -81,6 +81,7 @@ namespace UmbracoV7Demo.Controllers
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
+        [ChildActionOnly]
         public ActionResult RenderContactForm()
         {
             return this.PartialView("ContactForm", this.contactViewModel);

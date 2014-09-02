@@ -1,12 +1,9 @@
-﻿@using System
-@using UmbracoV7Demo.ViewModels
+﻿@using UmbracoV7Demo.ViewModels
 @using UmbracoV7Demo.Controllers
 @using UmbracoV7Demo.Extensions
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<ContactViewModel>
 @{
     Layout = "";
-
-    Model.SubmitDate = DateTime.UtcNow;
     var formCompleted = TempData["FormCompleted"] != null;
 }
 
@@ -44,10 +41,9 @@
         </div>
 
         <div class="form-row">
-            @Html.TextBoxFor(m => m.Honeypot, new { @style = "position:absolute;width:1px;height:1px;overflow:hidden;" })
+            @Html.TextBoxFor(m => m.Honeypot, new { @style = "position:absolute;left:-99999px;width:1px;height:1px;" })
             @Html.ValidationMessageFor(m => m.Honeypot)
             @Html.SpamProtectionTimeStampFor(m => m.TimeStamp)
-            @Html.HiddenFor(m => m.SubmitDate)
         </div>
 
         <div class="form-row submit-row">
