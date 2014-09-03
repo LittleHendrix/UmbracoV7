@@ -283,11 +283,13 @@
   <ItemGroup>
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\XmlSitemapSurfaceController.cs" />
+    <Compile Include="Core\Interfaces\IPaged.cs" />
     <Compile Include="Core\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Core\LuceneHighlightHelper.cs" />
     <Compile Include="Core\Interfaces\IRepository.cs" />
     <Compile Include="Extensions\DataAnnotations\SpamPotAttribute.cs" />
     <Compile Include="Extensions\DataAnnotations\SpamTimerAttribute.cs" />
+    <Compile Include="Infrastructure\Repositories\Ext\PpBlogCommentsRepositoryExtension.cs" />
     <Compile Include="Infrastructure\Repositories\PpGenericRepository.cs" />
     <Compile Include="Models\BlogComment.cs" />
     <Compile Include="Extensions\EventHandlers\RegisterEvents.cs" />

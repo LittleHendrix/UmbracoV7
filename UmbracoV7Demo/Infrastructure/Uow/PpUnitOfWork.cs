@@ -16,8 +16,7 @@
 
         private readonly Transaction petaTranaction;
 
-
-        public PpUnitOfWork()
+        protected PpUnitOfWork()
         {
             this.db = ApplicationContext.Current.DatabaseContext.Database;
             this.petaTranaction = new Transaction(this.db);
