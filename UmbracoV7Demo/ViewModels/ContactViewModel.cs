@@ -13,6 +13,8 @@
         [SpamTimer(12)]
         public long TimeStamp { get; set; }
 
+        public DateTime SubmitDate { get; set; }
+
         [Required(ErrorMessage = "Name is required")]
         [StringLength(20)]
         public string Name { get; set; }
