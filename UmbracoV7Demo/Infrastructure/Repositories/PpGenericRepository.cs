@@ -2,13 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Linq.Expressions;
 
     using Umbraco.Core.Persistence;
 
-    using UmbracoV7Demo.Core.Interfaces;
-    using UmbracoV7Demo.Infrastructure.Util;
+    using UmbracoV7Demo.Infrastructure.Interfaces;
 
     public class PpGenericRepository<T> : IEditableRepository<T>
         where T : class

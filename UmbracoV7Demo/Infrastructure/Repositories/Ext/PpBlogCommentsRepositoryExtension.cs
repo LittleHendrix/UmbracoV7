@@ -11,8 +11,8 @@ namespace UmbracoV7Demo.Infrastructure.Repositories.Ext
 {
     using System.Collections.Generic;
 
-    using UmbracoV7Demo.Core.Interfaces;
     using UmbracoV7Demo.Infrastructure.Data.Models;
+    using UmbracoV7Demo.Infrastructure.Interfaces;
 
     /// <summary>
     /// The pp blog comments repository extension.

@@ -6,7 +6,7 @@
 //   The Repository interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace UmbracoV7Demo.Core.Interfaces
+namespace UmbracoV7Demo.Infrastructure.Interfaces
 {
     using System;
     using System.Collections.Generic;

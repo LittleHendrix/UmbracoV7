@@ -1,11 +1,10 @@
 ﻿namespace UmbracoV7Demo.Infrastructure.Uow
 {
-
     using Umbraco.Core;
     using Umbraco.Core.Persistence;
 
-    using UmbracoV7Demo.Core.Interfaces;
     using UmbracoV7Demo.Infrastructure.Data.Models;
+    using UmbracoV7Demo.Infrastructure.Interfaces;
     using UmbracoV7Demo.Infrastructure.Repositories;
 
     public abstract class PpUnitOfWork : IUnitOfWork

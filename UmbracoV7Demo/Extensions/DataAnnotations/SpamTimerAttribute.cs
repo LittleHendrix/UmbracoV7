@@ -9,9 +9,7 @@
 namespace UmbracoV7Demo.Extensions.DataAnnotations
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
 
     /// <summary>
     ///     The spam protection attribute.
@@ -36,7 +34,7 @@ namespace UmbracoV7Demo.Extensions.DataAnnotations
         #region Public Properties
 
         /// <summary>
-        /// Gets the timespan.
+        ///     Gets the timespan.
         /// </summary>
         public int Timespan { get; private set; }
 

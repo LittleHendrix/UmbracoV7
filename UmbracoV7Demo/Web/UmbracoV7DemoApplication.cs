@@ -11,7 +11,7 @@
     using Umbraco.Core.Persistence;
     using Umbraco.Web;
 
-    using UmbracoV7Demo.Core.Interfaces;
+    using UmbracoV7Demo.Infrastructure.Interfaces;
     using UmbracoV7Demo.Infrastructure.Data.Models;
     using UmbracoV7Demo.Infrastructure.Uow;
     using UmbracoV7Demo.ViewModels;

@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace UmbracoV7Demo.Core
+namespace UmbracoV7Demo.Infrastructure
 {
     using System.Collections.Generic;
     using System.IO;
