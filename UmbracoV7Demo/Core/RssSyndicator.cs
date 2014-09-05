@@ -6,7 +6,7 @@
 //   The rss syndicator.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace UmbracoV7Demo.Infrastructure
+namespace UmbracoV7Demo.Core
 {
     using System;
     using System.Collections.Generic;

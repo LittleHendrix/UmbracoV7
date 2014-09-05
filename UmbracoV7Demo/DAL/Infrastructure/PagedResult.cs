@@ -1,10 +1,10 @@
-﻿namespace UmbracoV7Demo.Infrastructure.Util
+﻿namespace UmbracoV7Demo.DAL.Infrastructure
 {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
-    using UmbracoV7Demo.Infrastructure.Interfaces;
+    using UmbracoV7Demo.DAL.Interfaces;
 
     public class PagedResult<T> : IPaged<T>
     {

@@ -1,4 +1,4 @@
-﻿namespace UmbracoV7Demo.Infrastructure.Repositories
+﻿namespace UmbracoV7Demo.DAL.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
 
     using Umbraco.Core.Persistence;
 
-    using UmbracoV7Demo.Infrastructure.Interfaces;
+    using UmbracoV7Demo.DAL.Interfaces;
 
     public class PpGenericRepository<T> : IEditableRepository<T>
         where T : class

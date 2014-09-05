@@ -7,12 +7,12 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace UmbracoV7Demo.Infrastructure.Repositories.Ext
+namespace UmbracoV7Demo.DAL.Repositories
 {
     using System.Collections.Generic;
 
-    using UmbracoV7Demo.Infrastructure.Data.Models;
-    using UmbracoV7Demo.Infrastructure.Interfaces;
+    using UmbracoV7Demo.DAL.EntityModels;
+    using UmbracoV7Demo.DAL.Interfaces;
 
     /// <summary>
     /// The pp blog comments repository extension.

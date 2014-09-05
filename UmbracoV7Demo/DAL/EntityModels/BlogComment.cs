@@ -1,4 +1,4 @@
-﻿namespace UmbracoV7Demo.Infrastructure.Data.Models
+﻿namespace UmbracoV7Demo.DAL.EntityModels
 {
     using Umbraco.Core.Persistence;
     using Umbraco.Core.Persistence.DatabaseAnnotations;

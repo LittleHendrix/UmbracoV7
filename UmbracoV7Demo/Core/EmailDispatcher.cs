@@ -7,14 +7,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace UmbracoV7Demo.Infrastructure
+namespace UmbracoV7Demo.Core
 {
     using System.Configuration;
 
     using Umbraco.Core;
     using Umbraco.Core.Models;
     using Umbraco.Core.Services;
-
     using Umbraco.Web;
 
     using UmbracoV7Demo.ViewModels;

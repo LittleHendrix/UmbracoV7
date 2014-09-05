@@ -24,7 +24,8 @@ namespace UmbracoV7Demo.Controllers
     using Umbraco.Web.Models;
     using Umbraco.Web.Mvc;
 
-    using UmbracoV7Demo.Infrastructure;
+    using UmbracoV7Demo.Core;
+    using UmbracoV7Demo.DAL;
     using UmbracoV7Demo.ViewModels;
 
     /// <summary>

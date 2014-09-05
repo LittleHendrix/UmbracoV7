@@ -84,6 +84,9 @@
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper.1.34\lib\net45\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper.Rainbow">
+      <HintPath>..\packages\Dapper.Rainbow.0.1.2\lib\net40\Dapper.Rainbow.dll</HintPath>
+    </Reference>
     <Reference Include="Examine, Version=0.1.57.2941, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Examine.0.1.57.2941\lib\Examine.dll</HintPath>
@@ -286,18 +289,21 @@
   <ItemGroup>
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\XmlSitemapSurfaceController.cs" />
-    <Compile Include="Infrastructure\Interfaces\IPaged.cs" />
-    <Compile Include="Infrastructure\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="DAL\Interfaces\IPaged.cs" />
+    <Compile Include="DAL\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Core\LuceneHighlightHelper.cs" />
-    <Compile Include="Infrastructure\Interfaces\IRepository.cs" />
+    <Compile Include="DAL\Interfaces\IRepository.cs" />
+    <Compile Include="DAL\Repositories\DapperRepository.cs" />
+    <Compile Include="DAL\Utility\Constant.cs" />
+    <Compile Include="DAL\Utility\UmbV7DemoDatabase.cs" />
     <Compile Include="Extensions\DataAnnotations\SpamPotAttribute.cs" />
     <Compile Include="Extensions\DataAnnotations\SpamTimerAttribute.cs" />
-    <Compile Include="Infrastructure\Repositories\Ext\PpBlogCommentsRepositoryExtension.cs" />
-    <Compile Include="Infrastructure\Repositories\PpGenericRepository.cs" />
-    <Compile Include="Infrastructure\Util\PagedResult.cs" />
-    <Compile Include="Models\BlogComment.cs" />
+    <Compile Include="DAL\Repositories\PpBlogCommentsRepositoryExtension.cs" />
+    <Compile Include="DAL\Repositories\PpGenericRepository.cs" />
+    <Compile Include="DAL\Infrastructure\PagedResult.cs" />
+    <Compile Include="DAL\EntityModels\BlogComment.cs" />
     <Compile Include="Extensions\EventHandlers\RegisterEvents.cs" />
-    <Compile Include="Infrastructure\Uow\PpUnitOfWork.cs" />
+    <Compile Include="DAL\Infrastructure\PpUnitOfWork.cs" />
     <Compile Include="ViewModels\SearchResultsViewModel.cs" />
     <Compile Include="Web\UmbracoV7DemoApplication.cs" />
     <Content Include="css\dummy.txt" />
@@ -388,7 +394,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="assets\images\" />
-    <Folder Include="Extensions\Utilities\" />
     <Folder Include="Views\MacroPartials\" />
   </ItemGroup>
   <ItemGroup>
