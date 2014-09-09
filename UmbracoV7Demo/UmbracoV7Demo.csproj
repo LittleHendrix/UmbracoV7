@@ -81,12 +81,6 @@
     <Reference Include="CookComputing.XmlRpcV2">
       <HintPath>..\packages\xmlrpcnet.2.5.0\lib\net20\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
-    <Reference Include="Dapper">
-      <HintPath>..\packages\Dapper.1.34\lib\net45\Dapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Dapper.Rainbow">
-      <HintPath>..\packages\Dapper.Rainbow.0.1.2\lib\net40\Dapper.Rainbow.dll</HintPath>
-    </Reference>
     <Reference Include="Examine, Version=0.1.57.2941, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Examine.0.1.57.2941\lib\Examine.dll</HintPath>
@@ -293,9 +287,6 @@
     <Compile Include="DAL\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Core\LuceneHighlightHelper.cs" />
     <Compile Include="DAL\Interfaces\IRepository.cs" />
-    <Compile Include="DAL\Repositories\DapperRepository.cs" />
-    <Compile Include="DAL\Utility\Constant.cs" />
-    <Compile Include="DAL\Utility\UmbV7DemoDatabase.cs" />
     <Compile Include="Extensions\DataAnnotations\SpamPotAttribute.cs" />
     <Compile Include="Extensions\DataAnnotations\SpamTimerAttribute.cs" />
     <Compile Include="DAL\Repositories\PpBlogCommentsRepositoryExtension.cs" />

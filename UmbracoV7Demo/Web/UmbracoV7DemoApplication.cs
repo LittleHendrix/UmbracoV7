@@ -50,7 +50,7 @@
             // if components appear in many object graphs using the following method to gain exra performance
             // builder.Register(c => new MyCustomModel());
 
-            builder.RegisterType<PpUnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
+            // builder.RegisterType<PpUnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
 
             // bind abstract IUnitOfWork with specific provider (petapoco, EF, ...)
             // builder.RegisterType<ppUnitOfWOrk>().As<IUnitOfWork>().InstancePerRequest();
