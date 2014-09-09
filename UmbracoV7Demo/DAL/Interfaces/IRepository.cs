@@ -1,127 +1,28 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IRepository.cs" company="">
-//   
-// </copyright>
-// <summary>
-//   The Repository interface.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-namespace UmbracoV7Demo.DAL.Interfaces
+﻿namespace UmbracoV7Demo.DAL.Interfaces
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
 
-    /// <summary>
-    /// The Repository interface.
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public interface IRepository<T>
-        where T : class
+    using Umbraco.Core.Persistence;
+
+    public interface IRepository
     {
-        #region Public Methods and Operators
+        T Single<T>(object primaryKey);
 
-        /// <summary>
-        /// The find.
-        /// </summary>
-        /// <param name="predicate">
-        /// The predicate.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IEnumerable"/>.
-        /// </returns>
-        IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
+        T GetById<T>(object primaryKey);
 
-        /// <summary>
-        /// The first.
-        /// </summary>
-        /// <param name="predicate">
-        /// The predicate.
-        /// </param>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        T First(Expression<Func<T, bool>> predicate);
+        IEnumerable<T> Query<T>();
 
-        /// <summary>
-        ///     The get all.
-        /// </summary>
-        /// <returns>
-        ///     The <see cref="IEnumerable" />.
-        /// </returns>
-        IEnumerable<T> GetAll();
+        int Count<T>();
 
-        /// <summary>
-        /// The get by id.
-        /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        T GetById(int id);
-
-        /// <summary>
-        /// The single.
-        /// </summary>
-        /// <param name="predicate">
-        /// The predicate.
-        /// </param>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        T Single(Expression<Func<T, bool>> predicate);
-
-        /// <summary>
-        /// The single or default.
-        /// </summary>
-        /// <param name="predicate">
-        /// The predicate.
-        /// </param>
-        /// <returns>
-        /// The <see cref="T"/>.
-        /// </returns>
-        T SingleOrDefault(Expression<Func<T, bool>> predicate);
-
-        #endregion
+        Page<T> PagedQuery<T>(long pageNumber, long itemsPerPage, string sql, params object[] args);
     }
 
-    /// <summary>
-    /// The EditableRepository interface.
-    /// </summary>
-    /// <typeparam name="T">
-    /// </typeparam>
-    public interface IEditableRepository<T> : IRepository<T>
-        where T : class
+    public interface IEditableRepository : IRepository
     {
-        #region Public Methods and Operators
+        int Insert(object obj);
 
-        /// <summary>
-        /// The create.
-        /// </summary>
-        /// <param name="entity">
-        /// The entity.
-        /// </param>
-        void Create(T entity);
+        int Delete(object obj);
 
-        /// <summary>
-        /// The delete.
-        /// </summary>
-        /// <param name="entity">
-        /// The entity.
-        /// </param>
-        void Delete(T entity);
-
-        /// <summary>
-        /// The update.
-        /// </summary>
-        /// <param name="entity">
-        /// The entity.
-        /// </param>
-        void Update(T entity);
-
-        #endregion
+        int Update(object obj, object primaryKeyValue);
     }
 }

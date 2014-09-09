@@ -2,12 +2,11 @@
 {
     using System;
 
-    using UmbracoV7Demo.DAL.EntityModels;
+    using Umbraco.Core.Persistence;
 
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<BlogComment> BlogCommentsRepositry { get; }
-
         void Commit();
+        Database Db { get; }
     }
 }
