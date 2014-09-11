@@ -297,6 +297,7 @@
     <Compile Include="Extensions\EventHandlers\RegisterEvents.cs" />
     <Compile Include="DAL\Infrastructure\PetaPocoUnitOfWork.cs" />
     <Compile Include="ViewModels\BlogCommentViewModel.cs" />
+    <Compile Include="ViewModels\BlogPostViewModel.cs" />
     <Compile Include="ViewModels\SearchResultsViewModel.cs" />
     <Compile Include="Web\UmbracoV7DemoApplication.cs" />
     <Content Include="css\dummy.txt" />

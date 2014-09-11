@@ -30,7 +30,9 @@
                     </article>
                     <section>
                         @{
-                            @*Html.RenderAction("RenderCommentForm", "BlogCommentSurface");*@
+                            Html.RenderAction("RenderComments", "BlogCommentSurface", new { umbNodeId = CurrentPage.Id });
+                                
+                        
                             Html.RenderPartial("CommentForm", new BlogCommentViewModel());
                         }
                     </section>

@@ -59,6 +59,11 @@
             return this.Query<T>(sql, args);
         }
 
+        public IEnumerable<T> Query<T>(Sql sql)
+        {
+            return this.uow.Db.Query<T>(sql);
+        }
+
         public IEnumerable<T> Query<T>(string sql, params object[] args)
         {
             return this.uow.Db.Query<T>(sql, args);
@@ -107,6 +112,16 @@
         public int Delete<T>(object pocoOrPrimaryKey)
         {
             return this.uow.Db.Delete<T>(pocoOrPrimaryKey);
+        }
+
+        public int Execute(string sql, params object[] args)
+        {
+            return this.uow.Db.Execute(sql, args);
+        }
+
+        public int Execute(Sql sql)
+        {
+            return this.uow.Db.Execute(sql);
         }
 
         public static string BuildSql(

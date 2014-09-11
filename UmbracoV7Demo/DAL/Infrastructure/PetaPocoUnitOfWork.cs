@@ -14,7 +14,8 @@
         public PetaPocoUnitOfWork()
         {
             this.db = ApplicationContext.Current.DatabaseContext.Database;
-            this.petaTranaction = new Transaction(this.db);
+            // this.petaTranaction = new Transaction(this.db);
+            this.petaTranaction = this.db.GetTransaction();
         }
 
         public void Commit()

@@ -1,5 +1,6 @@
 ﻿namespace UmbracoV7Demo.ViewModels
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
 
     using UmbracoV7Demo.Extensions.DataAnnotations;
@@ -25,5 +26,8 @@
         [Required]
         [Display(Name = "Comment")]
         public string Message { get; set; }
+
+        [Required]
+        public DateTime DatePosted { get; set; }
     }
 }

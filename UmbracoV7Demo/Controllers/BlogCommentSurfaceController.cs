@@ -9,11 +9,13 @@
 
 namespace UmbracoV7Demo.Controllers
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
 
     using Umbraco.Core;
     using Umbraco.Web.Mvc;
 
+    using UmbracoV7Demo.Core;
     using UmbracoV7Demo.DAL.EntityModels;
     using UmbracoV7Demo.DAL.Infrastructure;
     using UmbracoV7Demo.DAL.Interfaces;
@@ -80,10 +82,9 @@ namespace UmbracoV7Demo.Controllers
                                       Name = model.Name, 
                                       Email = model.Email, 
                                       Message = model.Message, 
-                                      BlogPostUmbracoId = model.UmbracoNodeId
+                                      BlogPostUmbracoId = model.UmbracoNodeId,
+                                      DatePosted = model.DatePosted
                                   };
-
-                // var newid = uow.Db.Insert("BlogComments", "BlogCommentId", comment);
 
                 var commentId = blogCommentsRepository.Insert(comment);
 
@@ -103,6 +104,31 @@ namespace UmbracoV7Demo.Controllers
         public ActionResult RenderCommentForm()
         {
             return this.PartialView("CommentForm", this.blogCommentViewModel);
+        }
+
+        [ChildActionOnly]
+        public ActionResult RenderComments(int umbNodeId)
+        {
+            var blogPostViewModel = new BlogPostViewModel();
+
+            using (IUnitOfWork uow = new PetaPocoUnitOfWork())
+            {
+                var repository = new PetaPocoRepository(uow);
+
+                blogPostViewModel.UmbracoNodeId = umbNodeId;
+
+                //var comments = uow.Db.Query<BlogComment>(
+                //    "SELECT * FROM BlogComments WHERE BlogPostUmbracoId=@0 ORDER BY DatePosted DESC",
+                //    umbNodeId);
+
+                var comments = repository.GetComments(umbNodeId);
+                blogPostViewModel.Comments = comments;
+                // blogPostViewModel.Comments = repository.GetComments(umbNodeId);
+
+                uow.Commit();
+            }
+
+            return this.PartialView("CommentsWidget", blogPostViewModel);
         }
 
         #endregion
