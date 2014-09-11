@@ -10,6 +10,8 @@
 
         T GetById<T>(object primaryKey);
 
+        IEnumerable<T> GetAll<T>();
+
         IEnumerable<T> Query<T>();
 
         int Count<T>();

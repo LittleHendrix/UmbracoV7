@@ -3,12 +3,12 @@
     using Umbraco.Core.Persistence;
     using Umbraco.Core.Persistence.DatabaseAnnotations;
 
-    [TableName("BlogCommments")]
+    [TableName("BlogComments")]
     [PrimaryKey("BlogCommentId", autoIncrement = true)]
     [ExplicitColumns]
     public class BlogComment
     {
-        [Column("id")]
+        [Column("BlogCommentId")]
         [PrimaryKeyColumn(AutoIncrement = true)]
         public int BlogCommentId { get; set; }
 

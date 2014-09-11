@@ -281,7 +281,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\BlogCommentsController.cs" />
+    <Compile Include="Controllers\BlogCommentSurfaceController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\XmlSitemapSurfaceController.cs" />
     <Compile Include="DAL\Infrastructure\PetaPocoUnitOfWorkProvider.cs" />
@@ -289,12 +289,14 @@
     <Compile Include="Core\LuceneHighlightHelper.cs" />
     <Compile Include="DAL\Interfaces\IRepository.cs" />
     <Compile Include="DAL\Interfaces\IUnitOfWorkProvider.cs" />
+    <Compile Include="DAL\Repositories\Ext\BlogCommentsRepositoryExtension.cs" />
     <Compile Include="Extensions\DataAnnotations\SpamPotAttribute.cs" />
     <Compile Include="Extensions\DataAnnotations\SpamTimerAttribute.cs" />
     <Compile Include="DAL\Repositories\PetaPocoRepository.cs" />
     <Compile Include="DAL\EntityModels\BlogComment.cs" />
     <Compile Include="Extensions\EventHandlers\RegisterEvents.cs" />
     <Compile Include="DAL\Infrastructure\PetaPocoUnitOfWork.cs" />
+    <Compile Include="ViewModels\BlogCommentViewModel.cs" />
     <Compile Include="ViewModels\SearchResultsViewModel.cs" />
     <Compile Include="Web\UmbracoV7DemoApplication.cs" />
     <Content Include="css\dummy.txt" />
@@ -375,6 +377,8 @@
     <Content Include="Views\TextPage.cshtml" />
     <Content Include="Views\umbNewsOverview.cshtml" />
     <Content Include="Views\XmlSitemap.cshtml" />
+    <Content Include="Views\Partials\CommentForm.cshtml" />
+    <Content Include="Views\Partials\CommentsWidget.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

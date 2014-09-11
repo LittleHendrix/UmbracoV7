@@ -9,8 +9,10 @@
         <div class="row">
             <div class="9u skel-cell-mainContent">
                 <div class="content content-left">
-                   @* @Html.Partial("ContactForm", new ContactViewModel())*@
-                    @Html.Action("RenderContactForm", "ContactSurface")
+                    @{
+                        Html.RenderPartial("ContactForm", new ContactViewModel());
+                    }
+                    @*@Html.Action("RenderContactForm", "ContactSurface")*@
                 </div>
             </div>
 

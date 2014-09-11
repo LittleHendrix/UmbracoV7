@@ -1,0 +1,45 @@
+﻿@using UmbracoV7Demo.Controllers
+@using UmbracoV7Demo.Extensions
+@using UmbracoV7Demo.ViewModels
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<BlogCommentViewModel>
+
+@{
+    Layout = "";
+    Model.UmbracoNodeId = Umbraco.AssignedContentItem.Id;
+}
+
+@{
+    { Html.RenderPartial("ScriptsValidation"); }
+
+    using (Html.BeginUmbracoForm<BlogCommentSurfaceController>("PostComment", null, new { @class = "myForm", @id = "commentForm" }, FormMethod.Post))
+    {
+        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+    
+        <div class="form-row">
+            @Html.LabelFor(m => m.Name, "Name", new { @name = "nameLbl", @class = "frmLabel" })
+            @Html.TextBoxFor(m => m.Name, new { @class = "frmTxtbox", placeholder = "Enter your name" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="form-row">
+            @Html.LabelFor(m => m.Email, "Email", new { @name = "emailLbl", @class = "frmLabel" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "frmTxtbox", placeholder = "Enter your email" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+        <div class="form-row">
+            @Html.LabelFor(m => m.Message, new { @name = "msgLbl", @class = "frmLabel" })
+            @Html.TextAreaFor(m => m.Message, new { @class = "frmTxtbox", placeholder = "Leave your comment" })
+            @Html.ValidationMessageFor(m => m.Message)
+        </div>
+        <div class="form-row">
+            @Html.TextBoxFor(m => m.Honeypot, new { @style = "position:absolute;left:-99999px;width:1px;height:1px;" })
+            @Html.ValidationMessageFor(m => m.Honeypot)
+            @Html.SpamProtectionTimeStampFor(m => m.TimeStamp)
+            @Html.HiddenFor(m => m.UmbracoNodeId)
+        </div>
+        <div class="form-row submit-row">
+            <input type="submit" class="btn submit-btn" id="submitContact" value="Submit" />
+        </div>
+
+    }
+}

@@ -1,4 +1,5 @@
-﻿@inherits UmbracoTemplatePage
+﻿@using UmbracoV7Demo.ViewModels
+@inherits UmbracoTemplatePage
 @{
     Layout = "Layout.cshtml";
     
@@ -27,6 +28,12 @@
                             @CurrentPage.BodyText
                         </section>                           
                     </article>
+                    <section>
+                        @{
+                            @*Html.RenderAction("RenderCommentForm", "BlogCommentSurface");*@
+                            Html.RenderPartial("CommentForm", new BlogCommentViewModel());
+                        }
+                    </section>
                     <!-- /Content -->
                 </div>
             </div>

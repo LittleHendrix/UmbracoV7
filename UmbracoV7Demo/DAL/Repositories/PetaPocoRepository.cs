@@ -34,6 +34,11 @@
             return this.uow.Db.ExecuteScalar<int>("SELECT Count(*) FROM @0", pd.TableInfo.TableName);
         }
 
+        public IEnumerable<T> GetAll<T>()
+        {
+            return this.Query<T>();
+        }
+
         public IEnumerable<T> Query<T>()
         {
             var pd = Database.PocoData.ForType(typeof(T));
@@ -51,7 +56,7 @@
             var pd = Database.PocoData.ForType(typeof(T));
             string sql = BuildSql(pd.TableInfo.TableName, where, orderBy, limit, columns);
 
-            return this.uow.Db.Query<T>(sql, args);
+            return this.Query<T>(sql, args);
         }
 
         public IEnumerable<T> Query<T>(string sql, params object[] args)
@@ -66,17 +71,17 @@
 
         public int Insert(object poco)
         {
-            return (int)this.uow.Db.Insert(poco);
+            return Convert.ToInt32(this.uow.Db.Insert(poco));
         }
 
         public int Insert(string tableName, string primaryKeyName, object poco)
         {
-            return (int)this.uow.Db.Insert(tableName, primaryKeyName, poco);
+            return Convert.ToInt32(this.uow.Db.Insert(tableName, primaryKeyName, poco));
         }
 
         public int Insert(string tableName, string primaryKeyName, bool autoIncrement, object poco)
         {
-            return (int)this.uow.Db.Insert(tableName, primaryKeyName, autoIncrement, poco);
+            return Convert.ToInt32(this.uow.Db.Insert(tableName, primaryKeyName, autoIncrement, poco));
         }
 
         public int Update(object poco)

@@ -46,6 +46,7 @@
             // add custom class to the container as Transient instance
             builder.RegisterType<NewsViewModel>();
             builder.RegisterType<ContactViewModel>();
+            builder.RegisterType<BlogCommentViewModel>();
 
             // if components appear in many object graphs using the following method to gain exra performance
             // builder.Register(c => new MyCustomModel());
