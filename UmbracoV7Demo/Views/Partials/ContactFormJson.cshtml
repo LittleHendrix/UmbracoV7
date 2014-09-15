@@ -1,0 +1,71 @@
+﻿@using System
+@using UmbracoV7Demo.ViewModels
+@using UmbracoV7Demo.Extensions
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<ContactViewModel>
+@{
+    Layout = "";
+    Model.SubmitDate = DateTime.Now;
+
+    AjaxOptions options = new AjaxOptions
+                              {
+                                  HttpMethod = "POST",
+                                  Confirm = "Do you wish to submit this form?", 
+                                  OnBegin = "OnBegin", 
+                                  OnComplete = "OnComplete()", 
+                                  OnFailure = "OnFailure()", 
+                                  OnSuccess = "OnSuccess()", 
+                                  LoadingElementId = "ajaxProgress", 
+                                  LoadingElementDuration = 1000, 
+                                  UpdateTargetId = "ajaxResponse", 
+                                  InsertionMode = InsertionMode.InsertAfter
+                              };
+    
+}
+
+@{
+    { Html.RenderPartial("ScriptsValidation"); }
+
+    using (Ajax.BeginForm("ContactUsJson", "Contact", options))
+    {
+        @Html.ValidationSummary()
+    
+        <div class="form-row">
+            @Html.LabelFor(m => m.Name, "Name", new { @name = "nameLbl", @class = "frmLabel" })
+            @Html.CustomTextBoxFor(m => m.Name, new { @class = "frmTxtbox", placeholder = "Enter your name" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+
+        <div class="form-row">
+            @Html.LabelFor(m => m.EmailAddress, "Email", new { @name = "emailLbl", @class = "frmLabel" })
+            @Html.CustomTextBoxFor(m => m.EmailAddress, new { @class = "frmTxtbox", placeholder = "Enter your email" })
+            @Html.ValidationMessageFor(m => m.EmailAddress)
+        </div>
+
+        <div class="form-row">
+            @Html.LabelFor(m => m.Subject, "Subject", new { @name = "subjLbl", @class = "frmLabel" })
+            @Html.CustomTextBoxFor(m => m.Subject, new { @class = "frmTxtbox", placeholder = "Choose a subject" })
+            @Html.ValidationMessageFor(m => m.Subject)
+        </div>
+
+        <div class="form-row">
+            @Html.LabelFor(m => m.Message, "Message", new { @name = "msgLbl", @class = "frmLabel" })
+            @Html.CustomTextAreaFor(m => m.Message, new { @class = "frmTxtbox", placeholder = "Leave your message" })
+            @Html.ValidationMessageFor(m => m.Message)
+        </div>
+
+        <div class="form-row">
+            @Html.TextBoxFor(m => m.Honeypot, new { @style = "position:absolute;left:-99999px;width:1px;height:1px;" })
+            @Html.ValidationMessageFor(m => m.Honeypot)
+            @Html.SpamProtectionTimeStampFor(m => m.TimeStamp)
+            @Html.HiddenFor(m => m.SubmitDate)
+        </div>
+
+        <div class="form-row submit-row">
+            <input type="submit" class="btn submit-btn" id="submitContact" value="Submit" />
+        </div>
+    }
+}
+
+<div id="ajaxProgress" style="background:url(~/assets/images/loading.gif) no-repeat 50% 50%; height:128px; width:100%; display:none;"></div>
+<div id="ajaxResponse"></div>
+<div id="ajaxMsg"></div>

@@ -1,13 +1,12 @@
-@using System.Linq
 @using UmbracoV7Demo.ViewModels
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<BlogPostViewModel>
 
-@{
-        foreach (var comment in Model.Comments)
-        {
-            <div class="comment">
-                <div class="meta">Posted by: @comment.Name on @comment.DatePosted.ToString()</div>
-                <div class="body">@comment.Message</div>
-            </div>        
-        }
-}
+<div id="commentBlock">
+    @foreach (var comment in Model.Comments)
+    {
+        <li class="comment">
+            <div class="meta" style="font-style:italic;">Posted by: @comment.Name on @comment.DatePosted.ToString("dd/MM") '@comment.DatePosted.ToString("yy") at @comment.DatePosted.ToString("H:mm")</div>
+            <div class="body">@comment.Message</div>
+        </li>
+    }
+</div>

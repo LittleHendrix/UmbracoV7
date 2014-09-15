@@ -34,6 +34,7 @@ namespace UmbracoV7Demo.Core
         public static void SendContactEmail(ContactViewModel model)
         {
             string to = ConfigurationManager.AppSettings["ContactEmailAddress"] ?? "luchen_sv@msn.com";
+
             var em = new EmailManager();
             em.SendMail(to, "Umbraco V7 Demo Contact", "EmailContact", model);
 

@@ -117,13 +117,7 @@ namespace UmbracoV7Demo.Controllers
 
                 blogPostViewModel.UmbracoNodeId = umbNodeId;
 
-                //var comments = uow.Db.Query<BlogComment>(
-                //    "SELECT * FROM BlogComments WHERE BlogPostUmbracoId=@0 ORDER BY DatePosted DESC",
-                //    umbNodeId);
-
-                var comments = repository.GetComments(umbNodeId);
-                blogPostViewModel.Comments = comments;
-                // blogPostViewModel.Comments = repository.GetComments(umbNodeId);
+                blogPostViewModel.Comments = repository.GetComments(umbNodeId);
 
                 uow.Commit();
             }
