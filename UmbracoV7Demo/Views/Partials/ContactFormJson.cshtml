@@ -1,32 +1,37 @@
 ﻿@using System
 @using UmbracoV7Demo.ViewModels
 @using UmbracoV7Demo.Extensions
+@using ClientDependency.Core.Mvc
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<ContactViewModel>
 @{
     Layout = "";
     Model.SubmitDate = DateTime.Now;
 
+    Html.RequiresJs("/Scripts/ajaxValidate.js");
+    
     AjaxOptions options = new AjaxOptions
                               {
                                   HttpMethod = "POST",
                                   Confirm = "Do you wish to submit this form?", 
-                                  OnBegin = "OnBegin", 
-                                  OnComplete = "OnComplete()", 
-                                  OnFailure = "OnFailure()", 
-                                  OnSuccess = "OnSuccess()", 
+                                  OnBegin = "onBegin", 
+                                  OnComplete = "onComplete", 
+                                  OnFailure = "onFailure", 
+                                  OnSuccess = "onSuccess", 
                                   LoadingElementId = "ajaxProgress", 
                                   LoadingElementDuration = 1000, 
                                   UpdateTargetId = "ajaxResponse", 
-                                  InsertionMode = InsertionMode.InsertAfter
+                                  InsertionMode = InsertionMode.Replace
                               };
     
 }
 
 @{
     { Html.RenderPartial("ScriptsValidation"); }
-
-    using (Ajax.BeginForm("ContactUsJson", "Contact", options))
+    @DateTime.Now
+    using (Ajax.BeginForm("ContactUsJson", "ContactSurface", null, options, new { @id="ajaxForm", @class="myForm"}))
     {
+        Model.SubmitDate = DateTime.Now;
+        
         @Html.ValidationSummary()
     
         <div class="form-row">
@@ -54,9 +59,8 @@
         </div>
 
         <div class="form-row">
-            @Html.TextBoxFor(m => m.Honeypot, new { @style = "position:absolute;left:-99999px;width:1px;height:1px;" })
+            @Html.TextBoxFor(m => m.Honeypot, new { @style = "" })
             @Html.ValidationMessageFor(m => m.Honeypot)
-            @Html.SpamProtectionTimeStampFor(m => m.TimeStamp)
             @Html.HiddenFor(m => m.SubmitDate)
         </div>
 
@@ -66,6 +70,6 @@
     }
 }
 
-<div id="ajaxProgress" style="background:url(~/assets/images/loading.gif) no-repeat 50% 50%; height:128px; width:100%; display:none;"></div>
+<div id="ajaxProgress" style="background:url(/assets/images/loading.gif) no-repeat 50% 50%; height:128px; width:100%; display:none;"></div>
 <div id="ajaxResponse"></div>
-<div id="ajaxMsg"></div>
+<div id="ajaxStatus"></div>

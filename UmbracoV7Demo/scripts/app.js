@@ -76,21 +76,4 @@
         options.messages['checkPot'] = options.message;
     });
 
-    function OnBegin() {
-        $('#ajaxMsg').append("<h3>Begining Ajax request.</h3>");
-    }
-
-    function OnComplete() {
-        $('#ajaxMsg').append("<h3>Completing Ajax request.</h3>");
-    }
-
-    function OnSuccess() {
-        $('#ajaxMsg').append("<h3>Ajax request successful.</h3>");
-    }
-
-    function OnFailure() {
-        $('#ajaxMsg').append("<h3>Ajax request failed.</h3>");
-    }
-
-
 })(jQuery);

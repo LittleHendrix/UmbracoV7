@@ -12,7 +12,7 @@
 @if (!formCompleted)
 {
     { Html.RenderPartial("ScriptsValidation"); }
-
+    @DateTime.Now
     using (Html.BeginUmbracoForm<ContactSurfaceController>("ContactUs", null, new { @class = "myForm", @id = "contactForm" }, FormMethod.Post))
     {
         @Html.ValidationSummary()
@@ -45,7 +45,6 @@
         <div class="form-row">
             @Html.TextBoxFor(m => m.Honeypot, new { @style = "position:absolute;left:-99999px;width:1px;height:1px;" })
             @Html.ValidationMessageFor(m => m.Honeypot)
-            @Html.SpamProtectionTimeStampFor(m => m.TimeStamp)
             @Html.HiddenFor(m => m.SubmitDate)
         </div>
 

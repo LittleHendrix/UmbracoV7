@@ -10,9 +10,11 @@
             <div class="9u skel-cell-mainContent">
                 <div class="content content-left">
                     @{
-                        //Html.RenderPartial("ContactForm", new ContactViewModel());
+                        Html.RenderPartial("ContactFormJson", new ContactViewModel());
+                        // Html.Partial("ContactFormJson", new ContactViewModel());
+                        Html.RenderPartial("ContactForm", new ContactViewModel());
                     }
-                    @Html.Partial("ContactFormJson", new ContactViewModel())
+                    
                     @*@Html.Action("RenderContactForm", "ContactSurface")*@
                 </div>
             </div>
