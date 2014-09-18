@@ -1,21 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="BlogCommentsSurfaceController.cs" company="">
+// <copyright file="BlogCommentSurfaceController.cs" company="">
 //   
 // </copyright>
 // <summary>
 //   The blog comments surface controller.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace UmbracoV7Demo.Controllers
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
 
-    using Umbraco.Core;
     using Umbraco.Web.Mvc;
 
-    using UmbracoV7Demo.Core;
     using UmbracoV7Demo.DAL.EntityModels;
     using UmbracoV7Demo.DAL.Infrastructure;
     using UmbracoV7Demo.DAL.Interfaces;
@@ -23,14 +19,14 @@ namespace UmbracoV7Demo.Controllers
     using UmbracoV7Demo.ViewModels;
 
     /// <summary>
-    /// The blog comments surface controller.
+    ///     The blog comments surface controller.
     /// </summary>
     public class BlogCommentSurfaceController : SurfaceController
     {
         #region Fields
 
         /// <summary>
-        /// The blog comment view model.
+        ///     The blog comment view model.
         /// </summary>
         private readonly BlogCommentViewModel blogCommentViewModel;
 
@@ -82,11 +78,11 @@ namespace UmbracoV7Demo.Controllers
                                       Name = model.Name, 
                                       Email = model.Email, 
                                       Message = model.Message, 
-                                      BlogPostUmbracoId = model.UmbracoNodeId,
+                                      BlogPostUmbracoId = model.UmbracoNodeId, 
                                       DatePosted = model.DatePosted
                                   };
 
-                var commentId = blogCommentsRepository.Insert(comment);
+                int commentId = blogCommentsRepository.Insert(comment);
 
                 uow.Commit();
             }
@@ -95,10 +91,10 @@ namespace UmbracoV7Demo.Controllers
         }
 
         /// <summary>
-        /// The render comment form.
+        ///     The render comment form.
         /// </summary>
         /// <returns>
-        /// The <see cref="ActionResult"/>.
+        ///     The <see cref="ActionResult" />.
         /// </returns>
         [ChildActionOnly]
         public ActionResult RenderCommentForm()
@@ -106,6 +102,15 @@ namespace UmbracoV7Demo.Controllers
             return this.PartialView("CommentForm", this.blogCommentViewModel);
         }
 
+        /// <summary>
+        /// The render comments.
+        /// </summary>
+        /// <param name="umbNodeId">
+        /// The umb node id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         [ChildActionOnly]
         public ActionResult RenderComments(int umbNodeId)
         {

@@ -1,0 +1,37 @@
+@using System
+@inherits Umbraco.Web.Mvc.UmbracoViewPage<UmbracoV7Demo.ViewModels.NewsItemViewModel>
+@{
+    Layout = null;
+    Model.PublishDate = DateTime.Now;
+}
+
+@{
+    using (Html.BeginForm("PostNewsItem", "NewsApi", FormMethod.Post, new { @class = "myForm", @id = "apiForm", enctype = "multipart/form-data" }))
+    {
+
+        @Html.ValidationSummary()
+        @Html.AntiForgeryToken()
+
+        <div class="form-row">
+            @Html.LabelFor(m => m.PageHeading, "PageHeading", new { @name = "nameLbl", @class = "frmLabel" })
+            @Html.TextBoxFor(m => m.PageHeading, new { @class = "frmTxtbox", placeholder = "Enter your name" })
+            @Html.ValidationMessageFor(m => m.PageHeading)
+        </div>
+        <div class="form-row">
+            @Html.LabelFor(m => m.BodyText, "Content", new { @name = "nameLbl", @class = "frmLabel" })
+            @Html.TextAreaFor(m => m.BodyText)
+            @Html.ValidationMessageFor(m => m.BodyText)
+        </div>
+        <div class="form-row">
+            @Html.LabelFor(m => m.Files, "Upload", new { @name = "nameLbl", @class = "frmLabel" })
+            @Html.TextBoxFor(m => m.Files, new { type = "file", accept = "images/*", multiple = "" })
+            @Html.ValidationMessageFor(m => m.Files)
+        </div>
+        <div class="form-row">
+            @Html.HiddenFor(m => m.PublishDate)
+        </div>
+        <div class="form-row submit-row">
+            <input type="submit" class="btn submit-btn" id="submitContact" value="Submit" />
+        </div>
+    }
+}

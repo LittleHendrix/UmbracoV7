@@ -1,0 +1,8 @@
+﻿@using UmbracoV7Demo.ViewModels
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+}
+@{
+    Html.RenderPartial("WebApiPostForm", new NewsItemViewModel());
+}

@@ -282,6 +282,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BlogCommentSurfaceController.cs" />
+    <Compile Include="Controllers\NewsApiController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\XmlSitemapSurfaceController.cs" />
     <Compile Include="Core\CustomAttributes\AjaxOnlyAttribute.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="DAL\Infrastructure\PetaPocoUnitOfWork.cs" />
     <Compile Include="ViewModels\BlogCommentViewModel.cs" />
     <Compile Include="ViewModels\BlogPostViewModel.cs" />
+    <Compile Include="ViewModels\NewsItemViewModel.cs" />
     <Compile Include="ViewModels\SearchResultsViewModel.cs" />
     <Compile Include="Web\UmbracoV7DemoApplication.cs" />
     <Content Include="assets\images\loading.gif" />
@@ -389,6 +391,8 @@
     <Content Include="Views\Partials\CommentForm.cshtml" />
     <Content Include="Views\Partials\CommentsWidget.cshtml" />
     <Content Include="Views\Partials\ContactFormJson.cshtml" />
+    <Content Include="Views\WebApiPost.cshtml" />
+    <Content Include="Views\Partials\WebApiPostForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
