@@ -28,7 +28,7 @@
                             Id = obj.Id,
                             PageHeading = obj.Name,
                             BodyText = obj.GetPropertyValue<string>("bodyText"),
-                            PageMedia = obj.ImagesNodesFor("pageMedia",1).First().GetPropertyValue<string>("umbracoFile"),
+                            PageMedia = obj.ImagesNodesFor("pageMedia", 1).First().GetPropertyValue<string>("umbracoFile"),
                             SearchEngineHide = obj.GetPropertyValue<bool>("searchEngineSitemapHide"),
                             UmbracoNaviHide = obj.GetPropertyValue<bool>("umbracoNaviHide"),
                             CreatorName = obj.CreatorName,
@@ -85,11 +85,11 @@
             if (content.HasProperty("pageMedia") && newsItem.Files.Any(x => x.ContentLength > 0))
             {
                 var uploadDir = ms.GetChildren(-1).Any(m => m.Name.ToLowerInvariant() == "webapipost") ? ms.GetChildren(-1).SingleOrDefault(m => m.Name.ToLowerInvariant() == "webapipost") : ms.CreateMedia("WebApiPost", -1, "Folder");
-                var mName = newsItem.PublishDate.ToString("dd-MM-yy") + newsItem.PageHeading.Replace(" ", "-");
+                var mediaName = newsItem.PublishDate.ToString("dd-MM-yy") + newsItem.PageHeading.Replace(" ", "-");
 
                 foreach (var file in newsItem.Files)
                 {
-                    var media = ms.CreateMedia(mName, uploadDir, "Image");
+                    var media = ms.CreateMedia(mediaName, uploadDir, "Image");
                     media.SetValue("umbracoFile", file);
                     ms.Save(media, userId);
                 }

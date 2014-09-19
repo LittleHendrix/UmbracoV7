@@ -6,6 +6,8 @@
 }
 
 @{
+    Html.RenderPartial("ScriptsValidation");
+    
     using (Html.BeginForm("PostNewsItem", "NewsApi", FormMethod.Post, new { @class = "myForm", @id = "apiForm", enctype = "multipart/form-data" }))
     {
 
