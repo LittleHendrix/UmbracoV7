@@ -1,29 +1,59 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SpamProtectionAttribute.cs" company="">
+// <copyright file="SpamTimerAttribute.cs" company="">
 //   
 // </copyright>
 // <summary>
 //   The spam protection attribute.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace UmbracoV7Demo.Extensions.DataAnnotations
 {
     using System;
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// The spam protection attribute.
+    ///     The spam protection attribute.
     /// </summary>
     public class SpamTimerAttribute : ValidationAttribute
     {
-        public int Timespan { get; private set; }
+        #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpamTimerAttribute"/> class.
+        /// </summary>
+        /// <param name="timespan">
+        /// The timespan.
+        /// </param>
         public SpamTimerAttribute(int timespan)
         {
             this.Timespan = timespan;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets the timespan.
+        /// </summary>
+        public int Timespan { get; private set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The is valid.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="validationContext">
+        /// The validation context.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ValidationResult"/>.
+        /// </returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             long timestamp;
@@ -37,13 +67,15 @@ namespace UmbracoV7Demo.Extensions.DataAnnotations
                     return
                         new ValidationResult(
                             string.Format(
-                                "Invalid form submission. At least {0} seconds have to pass before form submission ({1}).",
-                                this.Timespan.ToString(),
-                                value.ToString()));
+                                "Invalid form submission. At least {0} seconds have to pass before form submission ({1}).", 
+                                this.Timespan, 
+                                value));
                 }
             }
 
             return ValidationResult.Success;
         }
+
+        #endregion
     }
 }

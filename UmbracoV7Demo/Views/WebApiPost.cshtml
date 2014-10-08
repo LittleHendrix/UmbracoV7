@@ -1,21 +1,15 @@
 ﻿@using UmbracoV7Demo.ViewModels
-@using UmbracoV7Demo.Controllers
 @inherits Umbraco.Web.Mvc.UmbracoTemplatePage
 @{
     Layout = "Layout.cshtml";
-}
-<div id="main-wrapper">
+}<div id="main-wrapper">
     <div id="main" class="container">
         <div class="row">
             <div class="9u skel-cell-mainContent">
                 <div class="content content-left">
                     @{
-                        Html.RenderPartial("ContactFormJson", new ContactViewModel());
-                        // Html.Partial("ContactFormJson", new ContactViewModel());
-                        Html.RenderPartial("ContactForm", new ContactViewModel());
+                        Html.RenderPartial("WebApiPostForm", new NewsItemViewModel());
                     }
-                    
-                    @*@Html.Action("RenderContactForm", "ContactSurface")*@
                 </div>
             </div>
 

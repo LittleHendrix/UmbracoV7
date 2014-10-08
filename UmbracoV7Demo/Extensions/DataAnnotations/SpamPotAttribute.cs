@@ -16,7 +16,7 @@
             ModelMetadata metadata,
             ControllerContext context)
         {
-            yield return new ModelClientValidationRule { ErrorMessage = this.ErrorMessage, ValidationType = "spampot" };
+            yield return new ModelClientValidationRule { ErrorMessage = this.ErrorMessage, ValidationType = "honeypot" };
         } 
     }
 }

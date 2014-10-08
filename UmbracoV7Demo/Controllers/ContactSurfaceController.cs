@@ -16,6 +16,7 @@ namespace UmbracoV7Demo.Controllers
     using Umbraco.Web.Mvc;
 
     using UmbracoV7Demo.Core;
+    using UmbracoV7Demo.Core.CustomAttributes;
     using UmbracoV7Demo.ViewModels;
 
     /// <summary>
@@ -23,12 +24,12 @@ namespace UmbracoV7Demo.Controllers
     /// </summary>
     public class ContactSurfaceController : SurfaceController
     {
-        private readonly ContactViewModel contactViewModel;
+        //private readonly ContactViewModel contactViewModel;
 
-        public ContactSurfaceController(ContactViewModel contactViewModel)
-        {
-            this.contactViewModel = contactViewModel;
-        }
+        //public ContactSurfaceController(ContactViewModel contactViewModel)
+        //{
+        //    this.contactViewModel = contactViewModel;
+        //}
 
         #region Public Methods and Operators
 
@@ -74,6 +75,21 @@ namespace UmbracoV7Demo.Controllers
             return this.RedirectToCurrentUmbracoPage();
         }
 
+        [HttpPost]
+        [ActionName("ContactUsJson")]
+        [AjaxOnly]
+        public ActionResult ContactUsJsonPost(ContactViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Content("<p><strong>Oops!</strong> There's been an error.</p>" + model.SubmitDate);
+            }
+
+            EmailDispatcher.SendContactEmail(model);
+
+            return this.Content("<p>Your message has been submitted successfully. A email has been sent to the web administrator.</p>");
+        }
+
         /// <summary>
         /// The render contact form.
         /// @Html.Action("RenderContactForm","ContactSurface");
@@ -81,11 +97,11 @@ namespace UmbracoV7Demo.Controllers
         /// <returns>
         /// The <see cref="ActionResult"/>.
         /// </returns>
-        [ChildActionOnly]
-        public ActionResult RenderContactForm()
-        {
-            return this.PartialView("ContactForm", this.contactViewModel);
-        }
+        //[ChildActionOnly]
+        //public ActionResult RenderContactForm()
+        //{
+        //    return this.PartialView("ContactForm", this.contactViewModel);
+        //}
 
         #endregion
     }

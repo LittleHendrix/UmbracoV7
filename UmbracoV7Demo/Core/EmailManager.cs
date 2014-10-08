@@ -1,15 +1,15 @@
 ﻿namespace UmbracoV7Demo.Core
 {
-    using System.Net.Mime;
-
-    using RazorEngine;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
     using System.Net;
     using System.Net.Mail;
+    using System.Net.Mime;
     using System.Web.Hosting;
+
+    using RazorEngine;
 
     public class EmailManager
     {

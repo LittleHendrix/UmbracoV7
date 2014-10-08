@@ -1,22 +1,38 @@
 ﻿@using System
 @using UmbracoV7Demo.ViewModels
-@using UmbracoV7Demo.Controllers
 @using UmbracoV7Demo.Extensions
+@using ClientDependency.Core.Mvc
 @inherits Umbraco.Web.Mvc.UmbracoViewPage<ContactViewModel>
 @{
     Layout = "";
     Model.SubmitDate = DateTime.Now;
-    var formCompleted = TempData["FormCompleted"] != null;
+
+    Html.RequiresJs("/Scripts/ajaxValidate.js");
+    
+    AjaxOptions options = new AjaxOptions
+                              {
+                                  HttpMethod = "POST",
+                                  Confirm = "Do you wish to submit this form?", 
+                                  OnBegin = "onBegin", 
+                                  OnComplete = "onComplete", 
+                                  OnFailure = "onFailure", 
+                                  OnSuccess = "onSuccess", 
+                                  LoadingElementId = "ajaxProgress", 
+                                  LoadingElementDuration = 1000, 
+                                  UpdateTargetId = "ajaxResponse", 
+                                  InsertionMode = InsertionMode.Replace
+                              };
+    
 }
 
-@if (!formCompleted)
-{
+@{
     { Html.RenderPartial("ScriptsValidation"); }
     @DateTime.Now
-    using (Html.BeginUmbracoForm<ContactSurfaceController>("ContactUs", null, new { @class = "myForm", @id = "contactForm" }, FormMethod.Post))
+    using (Ajax.BeginForm("ContactUsJson", "ContactSurface", null, options, new { @id="ajaxForm", @class="myForm"}))
     {
+        Model.SubmitDate = DateTime.Now;
+        
         @Html.ValidationSummary()
-        @Html.AntiForgeryToken()
     
         <div class="form-row">
             @Html.LabelFor(m => m.Name, "Name", new { @name = "nameLbl", @class = "frmLabel" })
@@ -43,7 +59,7 @@
         </div>
 
         <div class="form-row">
-            @Html.TextBoxFor(m => m.Honeypot, new { @style = "position:absolute;left:-99999px;width:1px;height:1px;" })
+            @Html.TextBoxFor(m => m.Honeypot, new { @style = "" })
             @Html.ValidationMessageFor(m => m.Honeypot)
             @Html.HiddenFor(m => m.SubmitDate)
         </div>
@@ -51,11 +67,9 @@
         <div class="form-row submit-row">
             <input type="submit" class="btn submit-btn" id="submitContact" value="Submit" />
         </div>
-
     }
 }
-else
-{
-    <p>@TempData["FormCompleted"]</p>
-    <p>Form has been submitted successfully!</p>
-}
+
+<div id="ajaxProgress" style="background:url(/assets/images/loading.gif) no-repeat 50% 50%; height:128px; width:100%; display:none;"></div>
+<div id="ajaxResponse"></div>
+<div id="ajaxStatus"></div>

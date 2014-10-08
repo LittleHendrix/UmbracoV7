@@ -14,7 +14,6 @@ namespace UmbracoV7Demo.Core
     using Umbraco.Core;
     using Umbraco.Core.Models;
     using Umbraco.Core.Services;
-
     using Umbraco.Web;
 
     using UmbracoV7Demo.ViewModels;
@@ -35,6 +34,7 @@ namespace UmbracoV7Demo.Core
         public static void SendContactEmail(ContactViewModel model)
         {
             string to = ConfigurationManager.AppSettings["ContactEmailAddress"] ?? "luchen_sv@msn.com";
+
             var em = new EmailManager();
             em.SendMail(to, "Umbraco V7 Demo Contact", "EmailContact", model);
 
@@ -91,7 +91,7 @@ namespace UmbracoV7Demo.Core
 
             if (content.HasProperty(datetimePropperty))
             {
-                content.SetValue(datetimePropperty, model.TimeStamp.ToString("f"));
+                content.SetValue(datetimePropperty, model.SubmitDate.ToString("f"));
             }
 
             // cs.SaveAndPublishWithStatus(content);
