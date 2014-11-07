@@ -39,7 +39,7 @@ namespace UmbracoV7Demo.Extensions
         /// <param name="htmlAttributes">
         /// The html attributes.
         /// </param>
-        /// <param name="listType">
+        /// <param name="ordered">
         /// The list type.
         /// </param>
         /// <returns>
@@ -49,7 +49,7 @@ namespace UmbracoV7Demo.Extensions
             this IPublishedContent publishedContent, 
             string mupPropertyAlias, 
             object htmlAttributes = null, 
-            string listType = "ul")
+            bool ordered = false)
         {
             if (!publishedContent.HasValue(mupPropertyAlias))
             {
@@ -64,7 +64,7 @@ namespace UmbracoV7Demo.Extensions
 
             var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes) as IDictionary<string, object>;
 
-            listType = (listType.ToLower() != "ol" || listType.ToLower() != "ul") ? "ul" : listType;
+            string listType = ordered ? "ol" : "ul";
 
             var htmlList = new TagBuilder(listType);
             htmlList.CustomMergeAttributes(attributes);
@@ -74,12 +74,12 @@ namespace UmbracoV7Demo.Extensions
                 var li = new TagBuilder("li");
                 var a = new TagBuilder("a");
 
-                a.Attributes.Add("href", item.Url);
-                a.Attributes.Add("target", item.Target);
+                a.MergeAttribute("href", item.Url, false);
+                a.MergeAttribute("target", item.Target, false);
 
                 if (item.Id == null)
                 {
-                    a.Attributes.Add("rel", "nofollow");
+                    a.MergeAttribute("rel", "nofollow", false);
                 }
 
                 a.SetInnerText(item.Name);
@@ -103,8 +103,8 @@ namespace UmbracoV7Demo.Extensions
         /// <param name="htmlAttributes">
         /// The html attributes.
         /// </param>
-        /// <param name="listType">
-        /// The list type.
+        /// <param name="ordered">
+        /// The ordered.
         /// </param>
         /// <returns>
         /// The <see cref="MvcHtmlString"/>.
@@ -113,7 +113,7 @@ namespace UmbracoV7Demo.Extensions
             this IPublishedContent publishedContent, 
             string rlPropertyAlias, 
             object htmlAttributes = null, 
-            string listType = "ul")
+            bool ordered = false)
         {
             if (!publishedContent.HasValue(rlPropertyAlias))
             {
@@ -124,7 +124,7 @@ namespace UmbracoV7Demo.Extensions
 
             var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes) as IDictionary<string, object>;
 
-            listType = (listType.ToLower() != "ol" || listType.ToLower() != "ul") ? "ul" : listType;
+            string listType = ordered ? "ol" : "ul";
 
             var htmlList = new TagBuilder(listType);
             htmlList.CustomMergeAttributes(attributes);
@@ -140,11 +140,11 @@ namespace UmbracoV7Demo.Extensions
                 string linkTarget = item.Value<bool>("newWindow") ? "_blank" : string.Empty;
                 var caption = item.Value<string>("caption");
 
-                a.Attributes.Add("href", linkUrl);
-                a.Attributes.Add("target", linkTarget);
+                a.MergeAttribute("href", linkUrl, false);
+                a.MergeAttribute("target", linkTarget, false);
                 if (!item.Value<bool>("isInternal"))
                 {
-                    a.Attributes.Add("rel", "nofollow");
+                    a.MergeAttribute("rel", "nofollow", false);
                 }
 
                 a.SetInnerText(caption);
@@ -168,13 +168,21 @@ namespace UmbracoV7Demo.Extensions
         /// <param name="maxItems">
         /// The max items.
         /// </param>
+        /// <param name="isResponsive">
+        /// The is Responsive.
+        /// </param>
+        /// <param name="enableLink">
+        /// The enable Link.
+        /// </param>
         /// <returns>
         /// The <see cref="MvcHtmlString"/>.
         /// </returns>
         public static MvcHtmlString ImagesFor(
             this IPublishedContent publishedContent, 
             string propertyAlias, 
-            int maxItems = 1000)
+            int maxItems = 1000, 
+            bool isResponsive = false, 
+            bool enableLink = false)
         {
             if (!publishedContent.HasValue(propertyAlias))
             {
@@ -194,15 +202,47 @@ namespace UmbracoV7Demo.Extensions
                 return MvcHtmlString.Empty;
             }
 
-            var tags = new List<TagBuilder>();
+            string tags = string.Empty;
 
             foreach (IPublishedContent item in itemCollection)
             {
                 var imgTag = new TagBuilder("img");
-                imgTag.Attributes.Add("src", item.GetPropertyValue<string>("umbracoFile"));
-                imgTag.Attributes.Add("alt", item.Name + "-" + item.Id);
+                string imgStr = string.Empty;
 
-                tags.Add(imgTag);
+                imgTag.MergeAttribute("alt", item.Name + "-" + item.Id, false);
+
+                if (isResponsive && item.HasValue("mobileImage"))
+                {
+                    imgTag.MergeAttribute(
+                        "data-interchange", 
+                        "[" + item.GetPropertyValue<string>("mobileImage") + ", (default)], ["
+                        + item.GetPropertyValue<string>("umbracoFile") + ", (medium)]", 
+                        false);
+
+                    imgStr = imgTag + "<noscript><img src=\"" + item.GetPropertyValue<string>("umbracoFile")
+                             + "\" alt=\"" + item.Name + "\" /></noscript>";
+                }
+                else
+                {
+                    imgTag.MergeAttribute("src", item.GetPropertyValue<string>("umbracoFile"), false);
+                    imgStr = imgTag.ToString();
+                }
+
+                if (enableLink && item.GetPropertyValue<MultiUrls>("imageLink").Any())
+                {
+                    Link link = item.GetPropertyValue<MultiUrls>("imageLink").First();
+                    var a = new TagBuilder("a");
+                    a.MergeAttribute("href", link.Url, false);
+                    a.MergeAttribute("target", link.Target, false);
+
+                    a.InnerHtml = imgStr;
+
+                    tags += a;
+                }
+                else
+                {
+                    tags += imgStr;
+                }
             }
 
             return MvcHtmlString.Create(string.Join(" ", tags));

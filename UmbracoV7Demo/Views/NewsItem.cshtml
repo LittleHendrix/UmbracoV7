@@ -1,4 +1,5 @@
 ﻿@using UmbracoV7Demo.ViewModels
+@using UmbracoV7Demo.Extensions
 @inherits UmbracoTemplatePage
 @{
     Layout = "Layout.cshtml";
@@ -24,6 +25,8 @@
                             {
                                 <span class="image image-full"><img src="@CurrentPage.Image" alt="" /></span>
                             }
+                            <p>@Model.Content.GetPropertyValue("pageMedia")</p>
+                            <p class="img">@Model.Content.ImagesFor("pageMedia", 1, true, true)</p>
 
                             @CurrentPage.BodyText
                         </section>                           
